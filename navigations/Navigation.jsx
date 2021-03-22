@@ -1,9 +1,9 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Sales from "../screens/sale/Sales";
-import Transmissions from "../screens/tramsmission/Transmissions";
-import Account from "../screens/account/Account";
+import SalesStack from "./SalesStack";
+import TransmissionsStack from "./TransmissionsStack";
+import AccountStack from "./AccountStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -13,17 +13,17 @@ export default function Navigation() {
       <Tab.Navigator>
         <Tab.Screen
           name="sales"
-          component={Sales}
+          component={SalesStack}
           options={{ title: "Ventas" }}
         />
         <Tab.Screen
           name="transmissions"
-          component={Transmissions}
+          component={TransmissionsStack}
           options={{ title: "Transmisiones" }}
         />
         <Tab.Screen
           name="account"
-          component={Account}
+          component={AccountStack}
           options={{ title: "Cuenta" }}
         />
       </Tab.Navigator>
