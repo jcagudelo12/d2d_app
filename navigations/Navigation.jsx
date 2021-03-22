@@ -19,7 +19,7 @@ export default function Navigation() {
         <Tab.Screen
           name="transmissions"
           component={Transmissions}
-          options={{ title: "Transmiciones" }}
+          options={{ title: "Transmisiones" }}
         />
         <Tab.Screen
           name="account"
