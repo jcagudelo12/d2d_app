@@ -59,7 +59,7 @@ export default function LoginForm() {
   return (
     <ScrollView centerContent style={styles.container}>
       <Image
-        source={require("../../assets/logo.png")}
+        source={require("../../assets/icon.png")}
         resizeMode="contain"
         style={styles.image}
       />
@@ -90,6 +90,7 @@ export default function LoginForm() {
       />
       <Button
         title="Iniciar sesión"
+        titleStyle={styles.textButton}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={() => doLogin()}
@@ -121,7 +122,9 @@ const defaultFormValues = () => {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 30,
+    // marginHorizontal: 30,
+    paddingHorizontal: 30,
+    backgroundColor: "#000",
   },
   image: {
     height: 200,
@@ -134,9 +137,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: "90%",
     alignSelf: "center",
+    color: "#000",
   },
   btn: {
-    backgroundColor: "#01004f",
+    backgroundColor: "#4a4a4a",
     borderRadius: 20,
   },
   icon: {
@@ -155,5 +159,10 @@ const styles = StyleSheet.create({
   btnWhatsapp: {
     backgroundColor: "#00BB2D",
     borderRadius: 20,
+  },
+  textButton: {
+    color: "#CCDB33",
+    fontWeight: "bold",
+    fontSize: 26,
   },
 });
