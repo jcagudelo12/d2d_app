@@ -1,6 +1,5 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import { StyleSheet } from "react-native";
 
 import Account from "../screens/account/Account";
 import Login from "../screens/account/Login";
@@ -37,5 +36,3 @@ export default function AccountStack() {
     </Stack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({});
