@@ -1,5 +1,6 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
 
@@ -24,16 +25,28 @@ export default function Navigation() {
         break;
     }
     return (
-      <Icon type="material-community" name={iconName} size={30} color={color} />
+      <Icon
+        type="material-community"
+        name={iconName}
+        size={40}
+        color={color === "#CCDB33" ? "#CCDB33" : "#fff"}
+        reverse={color === "#CCDB33" ? true : false}
+        reverseColor={color === "#CCDB33" && "#474747"}
+      />
     );
   };
+
   return (
     <NavigationContainer>
       <Tab.Navigator
         initialRouteName="account"
         tabBarOptions={{
-          inactiveTintColor: "#4A4A4A",
+          inactiveTintColor: "#fff",
           activeTintColor: "#CCDB33",
+          style: {
+            backgroundColor: "#5b5b5b",
+            borderTopWidth: 0,
+          },
         }}
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color }) => screenOptions(route, color),
@@ -47,7 +60,7 @@ export default function Navigation() {
         <Tab.Screen
           name="transmissions"
           component={TransmissionsStack}
-          options={{ title: "Transmisiones" }}
+          options={{ title: "Enviado" }}
         />
         <Tab.Screen
           name="account"
@@ -58,3 +71,5 @@ export default function Navigation() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({});

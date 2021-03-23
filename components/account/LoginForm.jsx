@@ -102,7 +102,7 @@ export default function LoginForm() {
           <Icon
             type="material-community"
             name="whatsapp"
-            size={60}
+            size={20}
             color={"#fff"}
           />
         }
@@ -122,9 +122,8 @@ const defaultFormValues = () => {
 
 const styles = StyleSheet.create({
   container: {
-    // marginHorizontal: 30,
     paddingHorizontal: 30,
-    backgroundColor: "#000",
+    backgroundColor: "#474747",
   },
   image: {
     height: 200,
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
     color: "#000",
   },
   btn: {
-    backgroundColor: "#4a4a4a",
+    backgroundColor: "#CCDB33",
     borderRadius: 20,
   },
   icon: {
@@ -151,17 +150,15 @@ const styles = StyleSheet.create({
     margin: 40,
   },
   btnWhatsappContainer: {
-    marginTop: 20,
-    width: 100,
-    height: 100,
+    marginTop: 80,
     alignSelf: "flex-end",
   },
   btnWhatsapp: {
     backgroundColor: "#00BB2D",
-    borderRadius: 20,
+    borderRadius: 15,
   },
   textButton: {
-    color: "#CCDB33",
+    color: "#fff",
     fontWeight: "bold",
     fontSize: 26,
   },
