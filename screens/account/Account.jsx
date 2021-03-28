@@ -3,8 +3,8 @@ import Loading from "../../components/Loading";
 import { getCurrentUser } from "../../utils/actions";
 import { useFocusEffect } from "@react-navigation/native";
 
-import UserGuest from "./UserGuest";
 import LoginForm from "../../components/account/LoginForm";
+import Sales from "../sale/Sales";
 
 export default function Account() {
   const [login, setLogin] = useState(null);
@@ -19,5 +19,5 @@ export default function Account() {
   if (login == null) {
     return <Loading isVisible={true} text="Cargando..." />;
   }
-  return login ? <UserLogged /> : <LoginForm />;
+  return login ? <Sales /> : <LoginForm />;
 }

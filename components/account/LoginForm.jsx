@@ -35,7 +35,7 @@ export default function LoginForm() {
       setErrorEmail(result.error);
       return;
     }
-    navigation.navigate("account");
+    navigation.navigate("sales");
   };
 
   const validateData = () => {
