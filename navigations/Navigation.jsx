@@ -43,6 +43,7 @@ export default function Navigation() {
         tabBarOptions={{
           inactiveTintColor: "#fff",
           activeTintColor: "#CCDB33",
+          keyboardHidesTabBar: true,
           style: {
             backgroundColor: "#5b5b5b",
             borderTopWidth: 0,

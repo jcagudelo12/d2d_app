@@ -1,18 +1,13 @@
 import React from "react";
-import { ActivityIndicator } from "react-native";
 import { StyleSheet, Text, View } from "react-native";
 import { Overlay } from "react-native-elements";
+import { Swing } from "react-native-animated-spinkit";
 
 export default function Loading({ isVisible, text }) {
   return (
-    <Overlay
-      isVisible={isVisible}
-      windowBackgroundColor="rgba(0,0,0,0.5)"
-      overlayBackgroundColor="transparent"
-      overlayStyle={styles.overlay}
-    >
+    <Overlay isVisible={isVisible} overlayStyle={styles.overlay}>
       <View style={styles.view}>
-        <ActivityIndicator size="large" color="#442484" />
+        <Swing size={80} color="#CCDB33" />
         {text && <Text style={styles.text}>{text}</Text>}
       </View>
     </Overlay>
@@ -21,11 +16,11 @@ export default function Loading({ isVisible, text }) {
 
 const styles = StyleSheet.create({
   overlay: {
-    height: 100,
-    width: 200,
-    backgroundColor: "#ffffff",
-    borderColor: "#442484",
-    borderWidth: 2,
+    height: 120,
+    width: 240,
+    backgroundColor: "#fff",
+    borderColor: "#CCDB33",
+    borderWidth: 1,
     borderRadius: 10,
   },
 
@@ -36,7 +31,6 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    color: "#442484",
-    marginTop: 10,
+    color: "#000",
   },
 });
