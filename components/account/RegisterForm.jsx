@@ -119,7 +119,7 @@ export default function RegisterForm() {
         }
       />
       <Button
-        title="Registrar Nuevo Usuario"
+        title="Crear Nuevo Usuario"
         titleStyle={styles.textButton}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}

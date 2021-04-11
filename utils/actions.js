@@ -114,3 +114,72 @@ export const updatePassword = async (password) => {
 
   return result;
 };
+
+export const addDocumentWithoutId = async (collection, data) => {
+  const result = { statusResponse: true, error: null };
+  try {
+    await db.collection(collection).add(data);
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+
+  return result;
+};
+
+export const getClients = async (limitClients, userId) => {
+  const result = {
+    statusResponse: true,
+    error: null,
+    clients: [],
+    startClient: null,
+  };
+  try {
+    const response = await db
+      .collection("Clients")
+      .orderBy("name", "asc")
+      .limit(limitClients)
+      .get();
+    if (response.docs.length > 0) {
+      result.startClient = response.docs[response.docs.length - 1];
+    }
+    response.forEach((doc) => {
+      const client = doc.data();
+      client.id = doc.id;
+      result.clients.push(client);
+    });
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+  return result;
+};
+
+export const getMoreClients = async (limitClients, startClient) => {
+  const result = {
+    statusResponse: true,
+    error: null,
+    client: [],
+    startClient: null,
+  };
+  try {
+    const response = await db
+      .collection("Clients")
+      .orderBy("name", "asc")
+      .startAfter(startClient.data())
+      .limit(limitClients)
+      .get();
+    if (response.docs.length > 0) {
+      result.startClient = response.docs[response.docs.length - 1];
+    }
+    response.forEach((doc) => {
+      const client = doc.data();
+      client.id = doc.id;
+      result.clients.push(client);
+    });
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+  return result;
+};
