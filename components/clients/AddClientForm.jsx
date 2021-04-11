@@ -23,12 +23,14 @@ const widthScreen = Dimensions.get("window").width;
 export default function AddClientForm({ toastRef, setLoading, navigation }) {
   const [formData, setFormData] = useState(defaultFormValues());
   const [errorName, setErrorName] = useState(null);
-  const [nit, setNit] = useState(null);
+  const [errorNit, setErrorNit] = useState(null);
   const [errorAddress, setErrorAddress] = useState(null);
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
-  const [city, setCity] = useState(null);
-  const [department, setDepartment] = useState(null);
+  const [errorcity, setErrorCity] = useState(null);
+  const [errorDepartment, setErrorDepartment] = useState(null);
+  const [errorPaymentCondition, setErrorPaymentCondition] = useState(null);
+  const [errorQuota, setErrorQuota] = useState(null);
   const [imagesSelected, setImagesSelected] = useState([]);
   const [isVisibleMap, setIsVisibleMap] = useState(false);
   const [locationClient, setLocationClient] = useState(null);
@@ -40,11 +42,18 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
 
     setLoading(true);
     const responseUploadImages = await uploadImages();
+
     const client = {
       name: formData.name,
+      nit: formData.nit,
       address: formData.address,
+      email: formData.email,
       callingCode: formData.callingCode,
       phone: formData.phone,
+      city: formData.city,
+      department: formData.department,
+      paymentCondition: formData.paymentCondition,
+      quota: formData.quota,
       location: locationClient,
       images: responseUploadImages,
       createAt: new Date(),
@@ -289,6 +298,8 @@ const FormAdd = ({
   errorPhone,
   errorCity,
   errorDepartment,
+  errorPaymentCondition,
+  errorQuota,
   setIsVisibleMap,
   locationClient,
 }) => {
@@ -372,6 +383,19 @@ const FormAdd = ({
         onChange={(e) => onChange(e, "department")}
         errorMessage={errorDepartment}
       />
+      <Input
+        placeholder="Condición de pago del cliente..."
+        defaultValue={formData.paymentCondition}
+        onChange={(e) => onChange(e, "paymentCondition")}
+        errorMessage={errorPaymentCondition}
+      />
+      <Input
+        placeholder="Cupo del cliente..."
+        keyboardType="phone-pad"
+        defaultValue={formData.quota}
+        onChange={(e) => onChange(e, "quota")}
+        errorMessage={errorQuota}
+      />
     </View>
   );
 };
@@ -388,6 +412,7 @@ const defaultFormValues = () => {
     city: "",
     department: "",
     quota: "2000000",
+    paymentCondition: "",
   };
 };
 const styles = StyleSheet.create({

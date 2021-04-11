@@ -135,7 +135,11 @@ export const getClients = async (limitClients, userId) => {
     startClient: null,
   };
   try {
-    const response = await db.collection("clients").get();
+    const response = await db
+      .collection("clients")
+      .orderBy("name", "asc")
+      .limit(limitClients)
+      .get();
     if (response.docs.length > 0) {
       result.startClient = response.docs[response.docs.length - 1];
     }

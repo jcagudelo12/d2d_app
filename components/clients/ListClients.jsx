@@ -8,7 +8,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { Image } from "react-native-elements";
+import { Divider, Image } from "react-native-elements";
+
 import { formatPhone } from "../../utils/helpers";
 
 export default function ListClients({ clients, navigation, handleLoadMore }) {
@@ -30,21 +31,21 @@ export default function ListClients({ clients, navigation, handleLoadMore }) {
 const Client = ({ client, navigation }) => {
   const {
     id,
-    // nit,
+    nit,
+    images,
     name,
     address,
     callingCode,
     phone,
-    // cellphone,
-    // email,
-    // city,
-    // department,
-    // quota,
-    // paymentCondition,
-    // location,
+    email,
+    city,
+    department,
+    quota,
+    paymentCondition,
+    location,
   } = client.item;
 
-  //const imageClient = images[0];
+  const imageClient = images[0];
 
   const goClient = () => {
     navigation.navigate("client", { id, name });
@@ -52,22 +53,25 @@ const Client = ({ client, navigation }) => {
   return (
     <TouchableOpacity onPress={goClient}>
       <View style={styles.viewClient}>
-        {/* <View style={styles.viewClientImage}>
+        <View style={styles.viewClientImage}>
           <Image
             resizeMode="cover"
             PlaceholderContent={<ActivityIndicator color="#ffffff" />}
             source={{ uri: imageClient }}
             style={styles.imageClient}
           />
-        </View> */}
+        </View>
         <View style={styles.viewClientInformation}>
           <Text style={styles.clientTitle}>{name}</Text>
-          <Text style={styles.clientInformation}>{address}</Text>
+          <Text style={styles.clientInformation}>Cupo: {quota}</Text>
           <Text style={styles.clientInformation}>
-            {formatPhone(callingCode, phone)}
+            Celular: {formatPhone(callingCode, phone)}
           </Text>
+          <Text style={styles.clientInformation}>Dirección: {address}</Text>
+          <Text style={styles.clientInformation}>Email: {email}</Text>
         </View>
       </View>
+      <Divider style={styles.divider} />
     </TouchableOpacity>
   );
 };
@@ -85,19 +89,24 @@ const styles = StyleSheet.create({
     paddingRight: 4,
   },
   imageClient: {
-    width: 90,
-    height: 90,
+    width: 100,
+    height: 100,
   },
   clientTitle: {
     fontWeight: "bold",
+    color: "white",
   },
   clientInformation: {
     paddingTop: 2,
-    color: "grey",
+    color: "white",
   },
   clientDescription: {
     paddingTop: 2,
-    color: "grey",
+    color: "white",
     width: "75%",
+  },
+  divider: {
+    backgroundColor: "#CCDB33",
+    margin: 2,
   },
 });

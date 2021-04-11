@@ -88,6 +88,7 @@ export default function Clients({ navigation }) {
 const styles = StyleSheet.create({
   viewBody: {
     flex: 1,
+    backgroundColor: "#474747",
   },
   btnContainer: {
     position: "absolute",
