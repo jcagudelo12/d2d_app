@@ -1,5 +1,5 @@
-import { size } from "lodash";
 import React, { useState } from "react";
+import { map } from "lodash";
 import {
   StyleSheet,
   Text,
@@ -8,12 +8,17 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import { Divider, Image } from "react-native-elements";
+import { Divider, Image, ListItem, Icon } from "react-native-elements";
 import { formatPhone } from "../../utils/helpers";
 
 import Modal from "../Modal";
+import ChangeDisplayNameForm from "../account/ChangeDisplayNameForm";
+import ChangeEmailForm from "../account/ChangeEmailForm";
+import ChangePasswordForm from "../account/ChangePasswordForm";
 
 export default function ListClients({ clients, navigation, handleLoadMore }) {
+  const [showModal, setShowModal] = useState(false);
+
   return (
     <View>
       <FlatList
@@ -22,14 +27,21 @@ export default function ListClients({ clients, navigation, handleLoadMore }) {
         onEndReachedThreshold={0.5}
         onEndReached={handleLoadMore}
         renderItem={(client) => (
-          <Client client={client} navigation={navigation} />
+          <Client
+            client={client}
+            navigation={navigation}
+            showModal={showModal}
+            setShowModal={setShowModal}
+          />
         )}
       />
     </View>
   );
 }
 
-const Client = ({ client, navigation }) => {
+const Client = ({ client, navigation, showModal, setShowModal }) => {
+  const [renderComponent, setRenderComponent] = useState(null);
+
   const {
     id,
     nit,
@@ -47,21 +59,82 @@ const Client = ({ client, navigation }) => {
   } = client.item;
 
   const imageClient = images[0];
-  const [isVisibleOption, setIsVisibleOption] = useState(false);
-  // const goOptionsClient = () => {
-  //   //setIsVisibleOption(true);
 
-  //   return (
-  <Modal isVisible={isVisibleOption} setIsVisible={setIsVisibleOption}>
-    <View>
-      <Text>lista...</Text>
-    </View>
-  </Modal>;
-  //navigation.navigate("client", { id, name });
-  //   );
-  // };
+  const generateOptions = () => {
+    return [
+      {
+        title: "Venta",
+        iconNameLeft: "cart-arrow-down",
+        iconColorLeft: "#474747",
+        iconNameRight: "arrow-right-thick",
+        iconColorRight: "#474747",
+        onPress: () => selectedComponent("displayName"),
+      },
+      {
+        title: "Cartera y Recaudo",
+        iconNameLeft: "cash-multiple",
+        iconColorLeft: "#474747",
+        iconNameRight: "arrow-right-thick",
+        iconColorRight: "#474747",
+        onPress: () => selectedComponent("email"),
+      },
+      {
+        title: "No Compra",
+        iconNameLeft: "cart-off",
+        iconColorLeft: "#474747",
+        iconNameRight: "arrow-right-thick",
+        iconColorRight: "#474747",
+        onPress: () => selectedComponent("password"),
+      },
+      {
+        title: "Datos del cliente",
+        iconNameLeft: "information",
+        iconColorLeft: "#474747",
+        iconNameRight: "arrow-right-thick",
+        iconColorRight: "#474747",
+        onPress: () => selectedComponent("password"),
+      },
+    ];
+  };
+
+  const selectedComponent = (key) => {
+    switch (key) {
+      case "displayName":
+        setRenderComponent(
+          <ChangeDisplayNameForm
+            displayName={user.displayName}
+            setShowModal={setShowModal}
+            toastRef={toastRef}
+            setReloadUser={setReloadUser}
+          />
+        );
+        break;
+      case "email":
+        setRenderComponent(
+          <ChangeEmailForm
+            displayName={user.email}
+            setShowModal={setShowModal}
+            toastRef={toastRef}
+            setReloadUser={setReloadUser}
+          />
+        );
+        break;
+      case "password":
+        setRenderComponent(
+          <ChangePasswordForm setShowModal={setShowModal} toastRef={toastRef} />
+        );
+        break;
+    }
+    setShowModal(true);
+  };
+  const menuOptions = generateOptions();
+
+  const goOptionsClient = () => {
+    setShowModal(true);
+    //navigation.navigate("client", { id, name });
+  };
   return (
-    <TouchableOpacity onPress={() => setIsVisibleOption(true)}>
+    <TouchableOpacity onPress={goOptionsClient}>
       <View style={styles.viewClient}>
         <View style={styles.viewClientImage}>
           <Image
@@ -82,6 +155,25 @@ const Client = ({ client, navigation }) => {
         </View>
       </View>
       <Divider style={styles.divider} />
+      <Modal isVisible={showModal} setVisible={setShowModal}>
+        {map(menuOptions, (menu, index) => (
+          <ListItem key={index} style={styles.menuItem} onPress={menu.onPress}>
+            <Icon
+              type="material-community"
+              name={menu.iconNameLeft}
+              color={menu.iconColorLeft}
+            />
+            <ListItem.Content>
+              <ListItem.Title>{menu.title}</ListItem.Title>
+            </ListItem.Content>
+            <Icon
+              type="material-community"
+              name={menu.iconNameRight}
+              color={menu.iconColorRight}
+            />
+          </ListItem>
+        ))}
+      </Modal>
     </TouchableOpacity>
   );
 };
