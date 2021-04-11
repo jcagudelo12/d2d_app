@@ -4,7 +4,11 @@ import { Icon } from "react-native-elements";
 import { useFocusEffect } from "@react-navigation/native";
 import firebase from "firebase/app";
 import Loading from "../../components/Loading";
-import { getCurrentUser, getClients } from "../../utils/actions";
+import {
+  getCurrentUser,
+  getClients,
+  getMoreClients,
+} from "../../utils/actions";
 import { size } from "lodash";
 import ListClients from "../../components/clients/ListClients";
 
@@ -21,8 +25,6 @@ export default function Clients({ navigation }) {
       userInfo ? setUser(true) : setUser(false);
     });
   }, []);
-
-  //   console.log(getCurrentUser().uid);
 
   useFocusEffect(
     useCallback(async () => {
@@ -42,7 +44,11 @@ export default function Clients({ navigation }) {
     }
 
     setLoading(true);
-    const response = await getMoreClients(limitClients, startClient);
+    const response = await getMoreClients(
+      limitClients,
+      startClient,
+      getCurrentUser().uid
+    );
     if (response.statusResponse) {
       setStartClient(response.startClient);
       setClients([...clients, ...response.clients]);
@@ -60,7 +66,7 @@ export default function Clients({ navigation }) {
         <ListClients
           clients={clients}
           navigation={navigation}
-          //handleLoadMore={handleLoadMore}
+          handleLoadMore={handleLoadMore}
         />
       ) : (
         <View style={styles.notFoundView}>

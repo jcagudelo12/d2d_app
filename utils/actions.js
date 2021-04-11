@@ -137,7 +137,7 @@ export const getClients = async (limitClients, userId) => {
   try {
     const response = await db
       .collection("clients")
-      .orderBy("name", "asc")
+      .where("createdBy", "==", userId)
       .limit(limitClients)
       .get();
     if (response.docs.length > 0) {
@@ -155,7 +155,7 @@ export const getClients = async (limitClients, userId) => {
   return result;
 };
 
-export const getMoreClients = async (limitClients, startClient) => {
+export const getMoreClients = async (limitClients, startClient, userId) => {
   const result = {
     statusResponse: true,
     error: null,
@@ -164,8 +164,8 @@ export const getMoreClients = async (limitClients, startClient) => {
   };
   try {
     const response = await db
-      .collection("Clients")
-      .orderBy("name", "asc")
+      .collection("clients")
+      .where("createdBy", "==", userId)
       .startAfter(startClient.data())
       .limit(limitClients)
       .get();

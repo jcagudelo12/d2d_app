@@ -1,5 +1,5 @@
 import { size } from "lodash";
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -9,8 +9,9 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { Divider, Image } from "react-native-elements";
-
 import { formatPhone } from "../../utils/helpers";
+
+import Modal from "../Modal";
 
 export default function ListClients({ clients, navigation, handleLoadMore }) {
   return (
@@ -46,12 +47,21 @@ const Client = ({ client, navigation }) => {
   } = client.item;
 
   const imageClient = images[0];
+  const [isVisibleOption, setIsVisibleOption] = useState(false);
+  // const goOptionsClient = () => {
+  //   //setIsVisibleOption(true);
 
-  const goClient = () => {
-    navigation.navigate("client", { id, name });
-  };
+  //   return (
+  <Modal isVisible={isVisibleOption} setIsVisible={setIsVisibleOption}>
+    <View>
+      <Text>lista...</Text>
+    </View>
+  </Modal>;
+  //navigation.navigate("client", { id, name });
+  //   );
+  // };
   return (
-    <TouchableOpacity onPress={goClient}>
+    <TouchableOpacity onPress={() => setIsVisibleOption(true)}>
       <View style={styles.viewClient}>
         <View style={styles.viewClientImage}>
           <Image

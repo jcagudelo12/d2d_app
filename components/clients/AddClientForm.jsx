@@ -27,7 +27,7 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
   const [errorAddress, setErrorAddress] = useState(null);
   const [errorEmail, setErrorEmail] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
-  const [errorcity, setErrorCity] = useState(null);
+  const [errorCity, setErrorCity] = useState(null);
   const [errorDepartment, setErrorDepartment] = useState(null);
   const [errorPaymentCondition, setErrorPaymentCondition] = useState(null);
   const [errorQuota, setErrorQuota] = useState(null);
@@ -93,6 +93,10 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
       setErrorName("Debes ingresar el nombre del cliente.");
       isValid = false;
     }
+    if (isEmpty(formData.nit)) {
+      setErrorNit("Debes ingresar el nit del cliente.");
+      isValid = false;
+    }
     if (isEmpty(formData.address)) {
       setErrorAddress("Debes ingresar la dirección del cliente.");
       isValid = false;
@@ -105,7 +109,24 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
       setErrorPhone("Debes ingresar un teléfono de cliente válido.");
       isValid = false;
     }
-
+    if (isEmpty(formData.city)) {
+      setErrorCity("Debes ingresar la ciudad del cliente.");
+      isValid = false;
+    }
+    if (isEmpty(formData.department)) {
+      setErrorDepartment("Debes ingresar el departamento del cliente.");
+      isValid = false;
+    }
+    if (isEmpty(formData.paymentCondition)) {
+      setErrorPaymentCondition(
+        "Debes ingresar la condición de pago del cliente."
+      );
+      isValid = false;
+    }
+    if (isEmpty(formData.quota)) {
+      setErrorQuota("Debes ingresar un cupo para el cliente.");
+      isValid = false;
+    }
     if (!locationClient) {
       toastRef.current.show("Debes de localizar el cliente en el mapa.", 3000);
       isValid = false;
@@ -125,7 +146,6 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
     setErrorPhone(null);
     setErrorAddress(null);
   };
-
   return (
     <ScrollView style={styles.viewContainer}>
       <ImageClient imageClient={imagesSelected[0]} />
@@ -133,9 +153,14 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
         formData={formData}
         setFormData={setFormData}
         errorName={errorName}
-        errorEmail={errorEmail}
+        errorNit={errorNit}
         errorAddress={errorAddress}
+        errorEmail={errorEmail}
         errorPhone={errorPhone}
+        errorCity={errorCity}
+        errorDepartment={errorDepartment}
+        errorPaymentCondition={errorPaymentCondition}
+        errorQuota={errorQuota}
         setIsVisibleMap={setIsVisibleMap}
         locationClient={locationClient}
       />
