@@ -12,9 +12,9 @@ import { Divider, Image, ListItem, Icon } from "react-native-elements";
 import { formatPhone } from "../../utils/helpers";
 
 import Modal from "../Modal";
-import ChangeDisplayNameForm from "../account/ChangeDisplayNameForm";
 import ChangeEmailForm from "../account/ChangeEmailForm";
 import ChangePasswordForm from "../account/ChangePasswordForm";
+import ListProducts from "../sale/ListProducts";
 
 export default function ListClients({ clients, navigation, handleLoadMore }) {
   const [showModal, setShowModal] = useState(false);
@@ -68,7 +68,7 @@ const Client = ({ client, navigation, showModal, setShowModal }) => {
         iconColorLeft: "#474747",
         iconNameRight: "arrow-right-thick",
         iconColorRight: "#474747",
-        onPress: () => selectedComponent("displayName"),
+        onPress: () => selectedComponent("sale"),
       },
       {
         title: "Cartera y Recaudo",
@@ -84,7 +84,7 @@ const Client = ({ client, navigation, showModal, setShowModal }) => {
         iconColorLeft: "#474747",
         iconNameRight: "arrow-right-thick",
         iconColorRight: "#474747",
-        onPress: () => selectedComponent("password"),
+        onPress: () => selectedComponent("doNotBuy"),
       },
       {
         title: "Datos del cliente",
@@ -92,22 +92,18 @@ const Client = ({ client, navigation, showModal, setShowModal }) => {
         iconColorLeft: "#474747",
         iconNameRight: "arrow-right-thick",
         iconColorRight: "#474747",
-        onPress: () => selectedComponent("password"),
+        onPress: () => selectedComponent("clientDetails"),
       },
     ];
   };
 
   const selectedComponent = (key) => {
     switch (key) {
-      case "displayName":
-        setRenderComponent(
-          <ChangeDisplayNameForm
-            displayName={user.displayName}
-            setShowModal={setShowModal}
-            toastRef={toastRef}
-            setReloadUser={setReloadUser}
-          />
-        );
+      case "sale":
+        {
+          setShowModal(false);
+          navigation.navigate("sale", { id, name });
+        }
         break;
       case "email":
         setRenderComponent(
@@ -119,10 +115,11 @@ const Client = ({ client, navigation, showModal, setShowModal }) => {
           />
         );
         break;
-      case "password":
-        setRenderComponent(
-          <ChangePasswordForm setShowModal={setShowModal} toastRef={toastRef} />
-        );
+      case "clientDetails":
+        navigation.navigate("clientDetails", { id, name });
+        break;
+      case "doNotBuy":
+        navigation.navigate("doNotBuy", { id });
         break;
     }
     setShowModal(true);
