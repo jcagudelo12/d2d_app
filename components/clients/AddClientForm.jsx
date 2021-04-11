@@ -23,9 +23,12 @@ const widthScreen = Dimensions.get("window").width;
 export default function AddClientForm({ toastRef, setLoading, navigation }) {
   const [formData, setFormData] = useState(defaultFormValues());
   const [errorName, setErrorName] = useState(null);
-  const [errorEmail, setErrorEmail] = useState(null);
+  const [nit, setNit] = useState(null);
   const [errorAddress, setErrorAddress] = useState(null);
+  const [errorEmail, setErrorEmail] = useState(null);
   const [errorPhone, setErrorPhone] = useState(null);
+  const [city, setCity] = useState(null);
+  const [department, setDepartment] = useState(null);
   const [imagesSelected, setImagesSelected] = useState([]);
   const [isVisibleMap, setIsVisibleMap] = useState(false);
   const [locationClient, setLocationClient] = useState(null);
@@ -280,9 +283,12 @@ const FormAdd = ({
   formData,
   setFormData,
   errorName,
-  errorEmail,
+  errorNit,
   errorAddress,
+  errorEmail,
   errorPhone,
+  errorCity,
+  errorDepartment,
   setIsVisibleMap,
   locationClient,
 }) => {
@@ -302,6 +308,12 @@ const FormAdd = ({
         errorMessage={errorName}
       />
       <Input
+        placeholder="Nit del cliente..."
+        defaultValue={formData.nit}
+        onChange={(e) => onChange(e, "nit")}
+        errorMessage={errorNit}
+      />
+      <Input
         placeholder="Dirección del cliente..."
         defaultValue={formData.address}
         onChange={(e) => onChange(e, "address")}
@@ -313,13 +325,7 @@ const FormAdd = ({
           onPress: () => setIsVisibleMap(true),
         }}
       />
-      <Input
-        placeholder="Email del cliente..."
-        keyboardType="email-address"
-        defaultValue={formData.email}
-        onChange={(e) => onChange(e, "email")}
-        errorMessage={errorEmail}
-      />
+
       <View style={styles.phoneView}>
         <CountryPicker
           withFlag
@@ -347,6 +353,25 @@ const FormAdd = ({
           errorMessage={errorPhone}
         />
       </View>
+      <Input
+        placeholder="Email del cliente..."
+        keyboardType="email-address"
+        defaultValue={formData.email}
+        onChange={(e) => onChange(e, "email")}
+        errorMessage={errorEmail}
+      />
+      <Input
+        placeholder="Ciudad del cliente..."
+        defaultValue={formData.city}
+        onChange={(e) => onChange(e, "city")}
+        errorMessage={errorCity}
+      />
+      <Input
+        placeholder="Departamento del cliente..."
+        defaultValue={formData.department}
+        onChange={(e) => onChange(e, "department")}
+        errorMessage={errorDepartment}
+      />
     </View>
   );
 };
@@ -354,11 +379,15 @@ const FormAdd = ({
 const defaultFormValues = () => {
   return {
     name: "",
-    email: "",
-    phone: "",
+    nit: "",
     address: "",
+    phone: "",
     country: "CO",
     callingCode: "57",
+    email: "",
+    city: "",
+    department: "",
+    quota: "2000000",
   };
 };
 const styles = StyleSheet.create({
