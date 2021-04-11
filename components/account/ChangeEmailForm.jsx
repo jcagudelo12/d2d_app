@@ -41,7 +41,7 @@ export default function ChangeEmailForm({
       return;
     }
     setReloadUser(true);
-    toastRef.current.show("Se ha actualizado el email", 3000);
+    toastRef.current.show("Se ha actualizado el email correctamente", 3000);
     setShowModal(false);
   };
 
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   btn: {
-    backgroundColor: "#442484",
+    backgroundColor: "#CCDB33",
+    borderRadius: 20,
   },
 });

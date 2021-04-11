@@ -57,19 +57,17 @@ export default function UserLogged() {
 const styles = StyleSheet.create({
   container: {
     minHeight: "100%",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#474747",
   },
   btnCloseSesion: {
+    width: "60%",
     marginTop: 30,
-    borderRadius: 5,
-    backgroundColor: "#ffffff",
-    borderTopWidth: 1,
-    borderTopColor: "#442484",
-    borderBottomWidth: 1,
-    borderBottomColor: "#442484",
+    borderRadius: 20,
+    backgroundColor: "#CCDB33",
     paddingVertical: 10,
+    alignSelf: "center",
   },
   btnCloseSesionTitle: {
-    color: "#442484",
+    color: "#000",
   },
 });

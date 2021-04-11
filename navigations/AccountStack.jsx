@@ -31,7 +31,20 @@ export default function AccountStack() {
       <Stack.Screen
         name="login"
         component={Login}
-        options={{ title: "Iniciar sesión" }}
+        options={{
+          title: "Iniciar sesión",
+          headerTitleContainerStyle: {
+            backgroundColor: "#5b5b5b",
+            left: 0,
+            right: 0,
+            bottom: 0,
+            top: 0,
+            justifyContent: "center",
+            paddingHorizontal: 10,
+            borderTopWidth: 2,
+            borderColor: "#CCDB33",
+          },
+        }}
       />
     </Stack.Navigator>
   );

@@ -120,8 +120,8 @@ const styles = StyleSheet.create({
   },
 
   textButton: {
-    color: "#fff",
+    color: "#000",
     fontWeight: "bold",
-    fontSize: 26,
+    // fontSize: 26,
   },
 });

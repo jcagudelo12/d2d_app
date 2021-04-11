@@ -36,8 +36,11 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
       );
       return;
     }
-    setReloadUser(true);
-    toastRef.current.show("Se ha actualizado el emailla contraseña.", 3000);
+    //setReloadUser(true);
+    toastRef.current.show(
+      "Se ha actualizado la contraseña correctamente.",
+      3000
+    );
     setShowModal(false);
   };
 
@@ -52,13 +55,13 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
       isValid = false;
     }
 
-    if (size(newPassword < 6)) {
+    if (size(newPassword < 6) || isEmpty(newPassword)) {
       setErrorNewPassword(
         "Debes ingresar una nueva contraseña de al menos 6 carácteres."
       );
       isValid = false;
     }
-    if (size(confirmPassword < 6)) {
+    if (size(confirmPassword < 6) || isEmpty(confirmPassword)) {
       setErrorConfirmPassword(
         "Debes ingresar una confirmación de tu contraseña de al menos 6 carácteres."
       );
@@ -73,17 +76,19 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
       );
       isValid = false;
     }
-    if (newPassword === confirmPassword) {
-      setCurrentPassword(
-        "Debes ingresar una contraseña diferente a la actual."
-      );
-      setNewPassword("Debes ingresar una contraseña diferente a la actual.");
-      setErrorConfirmPassword(
-        "Debes ingresar una contraseña diferente a la actual."
-      );
+    // if (newPassword !== confirmPassword) {
+    //   setErrorCurrentPassword(
+    //     "Debes ingresar una contraseña diferente a la actual."
+    //   );
+    //   setErrorNewPassword(
+    //     "Debes ingresar una contraseña diferente a la actual."
+    //   );
+    //   setErrorConfirmPassword(
+    //     "Debes ingresar una contraseña diferente a la actual."
+    //   );
 
-      isValid = false;
-    }
+    //   isValid = false;
+    // }
 
     return isValid;
   };
@@ -108,7 +113,7 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
         }
       />
       <Input
-        placeholder="Ingresa tu nueva contraseña.."
+        placeholder="Nueva contraseña.."
         containerStyle={styles.input}
         defaultValue={newPassword}
         onChange={(e) => setNewPassword(e.nativeEvent.text)}
@@ -125,7 +130,7 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
         }
       />
       <Input
-        placeholder="Ingresa tu confirmación de nueva contraseña"
+        placeholder="Confirmar nueva contraseña..."
         containerStyle={styles.input}
         defaultValue={confirmPassword}
         onChange={(e) => setConfirmPassword(e.nativeEvent.text)}
@@ -142,7 +147,7 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
         }
       />
       <Button
-        title="Cambiar Contraseña."
+        title="Cambiar Contraseña"
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}
@@ -164,6 +169,7 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   btn: {
-    backgroundColor: "#442484",
+    backgroundColor: "#CCDB33",
+    borderRadius: 20,
   },
 });

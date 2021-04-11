@@ -16,25 +16,25 @@ export default function AccountOptions({ user, toastRef, setReloadUser }) {
       {
         title: "Cambiar nombres y apellidos",
         iconNameLeft: "account-circle",
-        iconColorLeft: "#a7bfd3",
+        iconColorLeft: "#5b5b5b",
         iconNameRight: "chevron-right",
-        iconColorRight: "#a7bfd3",
+        iconColorRight: "#5b5b5b",
         onPress: () => selectedComponent("displayName"),
       },
       {
         title: "Cambiar email",
         iconNameLeft: "at",
-        iconColorLeft: "#a7bfd3",
+        iconColorLeft: "#5b5b5b",
         iconNameRight: "chevron-right",
-        iconColorRight: "#a7bfd3",
+        iconColorRight: "#5b5b5b",
         onPress: () => selectedComponent("email"),
       },
       {
         title: "Cambiar contraseña",
         iconNameLeft: "lock-reset",
-        iconColorLeft: "#a7bfd3",
+        iconColorLeft: "#5b5b5b",
         iconNameRight: "chevron-right",
-        iconColorRight: "#a7bfd3",
+        iconColorRight: "#5b5b5b",
         onPress: () => selectedComponent("password"),
       },
     ];
@@ -73,9 +73,14 @@ export default function AccountOptions({ user, toastRef, setReloadUser }) {
   const menuOptions = generateOptions();
 
   return (
-    <View>
+    <View style={styles.view}>
       {map(menuOptions, (menu, index) => (
-        <ListItem key={index} style={styles.menuItem} onPress={menu.onPress}>
+        <ListItem
+          key={index}
+          style={styles.menuItem}
+          underlayColor={"#474747"}
+          onPress={menu.onPress}
+        >
           <Icon
             type="material-community"
             name={menu.iconNameLeft}
@@ -99,8 +104,12 @@ export default function AccountOptions({ user, toastRef, setReloadUser }) {
 }
 
 const styles = StyleSheet.create({
+  // view: {
+  //   backgroundColor: "#474747",
+  // },
   menuItem: {
     borderBottomWidth: 1,
-    borderBottomColor: "#a7bfd3",
+    borderBottomColor: "#CCDB33",
+    backgroundColor: "#474747",
   },
 });

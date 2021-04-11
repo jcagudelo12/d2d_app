@@ -41,7 +41,7 @@ export default function InfoUser({ user, setLoading, setLoadingText }) {
       <Avatar
         onPress={changePhoto}
         rounded
-        size="large"
+        size="xlarge"
         source={
           photoUrl
             ? { uri: photoUrl }
@@ -52,7 +52,7 @@ export default function InfoUser({ user, setLoading, setLoadingText }) {
         <Text style={styles.displayName}>
           {user.displayName ? user.displayName : "Anónimo"}
         </Text>
-        <Text>{user.email}</Text>
+        <Text style={styles.displayName}>{user.email}</Text>
       </View>
     </View>
   );
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    backgroundColor: "#f9f9f9",
+    backgroundColor: "#474747",
     paddingVertical: 30,
   },
   infoUser: {
@@ -72,5 +72,6 @@ const styles = StyleSheet.create({
   displayName: {
     fontWeight: "bold",
     paddingBottom: 5,
+    color: "white",
   },
 });

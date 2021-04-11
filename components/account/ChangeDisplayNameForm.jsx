@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import { Button, Input } from "react-native-elements";
 import { isEmpty } from "lodash";
 import { updateProfile } from "../../utils/actions";
@@ -38,11 +38,11 @@ export default function ChangeDisplayNameForm({
     setError(null);
 
     if (isEmpty(newDisplayName)) {
-      setError("Debes ingresar nombres y apellidos.");
+      setError("Debes ingresar un nombres y apellidos.");
       return false;
     }
     if (newDisplayName === displayName) {
-      setError("Debes ingresar nombres y apellidos diferentes alos actuales.");
+      setError("Debes ingresar nombres y apellidos diferentes a los actuales.");
       return false;
     }
     return true;
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     width: "95%",
   },
   btn: {
-    backgroundColor: "#442484",
+    backgroundColor: "#CCDB33",
+    borderRadius: 20,
   },
 });

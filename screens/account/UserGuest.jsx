@@ -9,18 +9,19 @@ export default function UserGuest() {
   return (
     <ScrollView centerContent style={styles.viewBody}>
       <Image
-        source={require("../../assets/logo.png")}
+        source={require("../../assets/icon.png")}
         resizeMode="contain"
         style={styles.image}
       />
-      <Text style={styles.title}>Consulta tu perfil en Restaurants</Text>
-      <Text style={styles.description}>
-        ¿Cómo describirías tu mejor restaurante? Busca y visualiza los mejores
-        restaurantes de una forma sencilla, vota cuál te ha gustado más y
-        comenta cómo ha sido tu experiencia.
+      <Text style={styles.title}>Consulta tu perfil de Vendedor</Text>
+      <Text style={styles.description}>¿Animado para vender más que ayer?</Text>
+      <Text style={styles.descriptionPhrase}>
+        Recuerda que establecer metas es el primer paso para transformar lo
+        invisible en visible.
       </Text>
       <Button
         title="Ver tu perfil"
+        titleStyle={styles.btnShowProfile}
         buttonStyle={styles.button}
         onPress={() => navigation.navigate("login")}
       />
@@ -30,26 +31,38 @@ export default function UserGuest() {
 
 const styles = StyleSheet.create({
   viewBody: {
-    marginHorizontal: 30,
+    paddingHorizontal: 30,
+    backgroundColor: "#474747",
   },
   image: {
     height: 400,
     width: "100%",
-    marginTop: 50,
+    marginTop: 10,
   },
   title: {
     fontWeight: "bold",
-    fontSize: 19,
+    fontSize: 22,
     marginVertical: 10,
     textAlign: "center",
+    color: "#fff",
   },
   description: {
     textAlign: "justify",
+    color: "#fff",
+    marginBottom: 0,
+  },
+  descriptionPhrase: {
+    marginTop: 0,
+    textAlign: "justify",
     marginBottom: 10,
-    color: "#a65273",
+    color: "#fff",
   },
   button: {
     backgroundColor: "#CCDB33",
     borderRadius: 20,
+    marginTop: 10,
+  },
+  btnShowProfile: {
+    color: "#000",
   },
 });
