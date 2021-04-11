@@ -32,7 +32,6 @@ export default function Clients({ navigation }) {
         setStartClient(response.startClient);
         setClients(response.clients);
       }
-      console.log("response: ", response);
       setLoading(false);
     }, [])
   );
@@ -61,7 +60,7 @@ export default function Clients({ navigation }) {
         <ListClients
           clients={clients}
           navigation={navigation}
-          handleLoadMore={handleLoadMore}
+          //handleLoadMore={handleLoadMore}
         />
       ) : (
         <View style={styles.notFoundView}>

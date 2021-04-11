@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, ScrollView, Alert, Dimensions } from "react-native";
 import { Avatar, Button, Icon, Input, Image } from "react-native-elements";
-// import CountryPicker from "react-native-country-picker-modal";
+import CountryPicker from "react-native-country-picker-modal";
 import { map, size, filter, isEmpty } from "lodash";
 import MapView from "react-native-maps";
 import uuid from "random-uuid-v4";
@@ -48,9 +48,8 @@ export default function AddClientForm({ toastRef, setLoading, navigation }) {
       createdBy: getCurrentUser().uid,
     };
 
-    const responseAddDocument = await addDocumentWithoutId("Clients", client);
+    const responseAddDocument = await addDocumentWithoutId("clients", client);
     setLoading(false);
-    console.log(responseAddDocument);
     if (!responseAddDocument.statusResponse) {
       toastRef.current.show(
         "Error al grabar el cliente, por favor intenta más tarde.",
@@ -322,7 +321,7 @@ const FormAdd = ({
         errorMessage={errorEmail}
       />
       <View style={styles.phoneView}>
-        {/* <CountryPicker
+        <CountryPicker
           withFlag
           withCallingCode
           withFilter
@@ -338,7 +337,7 @@ const FormAdd = ({
             setCountry(country.cca2);
             setCallingCode(country.callingCode[0]);
           }}
-        /> */}
+        />
         <Input
           placeholder="WhatsApp del cliente..."
           keyboardType="phone-pad"
