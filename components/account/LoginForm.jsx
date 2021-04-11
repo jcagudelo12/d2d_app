@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     marginTop: 20,
     width: "90%",
     alignSelf: "center",
-    color: "#000",
   },
   btn: {
     backgroundColor: "#CCDB33",
@@ -122,6 +121,5 @@ const styles = StyleSheet.create({
   textButton: {
     color: "#000",
     fontWeight: "bold",
-    // fontSize: 26,
   },
 });

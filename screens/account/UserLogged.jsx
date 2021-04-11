@@ -45,7 +45,7 @@ export default function UserLogged() {
         titleStyle={styles.btnCloseSesionTitle}
         onPress={() => {
           closeSesion();
-          navigation.navigate("restaurants");
+          navigation.navigate("login");
         }}
       />
       <Toast ref={toastRef} position="center" opacity={0.9} />

@@ -34,7 +34,7 @@ export default function RegisterForm() {
       setErrorEmail(result.error);
       return;
     }
-    navigation.navigate("restaurants");
+    navigation.navigate("login");
   };
 
   const validateData = () => {
@@ -80,6 +80,7 @@ export default function RegisterForm() {
         keyboardType="email-address"
         errorMessage={errorEmail}
         defaultValue={formData.email}
+        color="white"
       />
       <Input
         containerStyle={styles.input}
@@ -89,6 +90,7 @@ export default function RegisterForm() {
         onChange={(e) => onChange(e, "password")}
         errorMessage={errorPassword}
         defaultValue={formData.password}
+        color="white"
         rightIcon={
           <Icon
             type="material-community"
@@ -106,6 +108,7 @@ export default function RegisterForm() {
         onChange={(e) => onChange(e, "confirm")}
         errorMessage={errorConfirm}
         defaultValue={formData.confirm}
+        color="white"
         rightIcon={
           <Icon
             type="material-community"
@@ -117,6 +120,7 @@ export default function RegisterForm() {
       />
       <Button
         title="Registrar Nuevo Usuario"
+        titleStyle={styles.textButton}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={() => doRegisterUser()}
@@ -143,9 +147,13 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   btn: {
-    backgroundColor: "#442484",
+    backgroundColor: "#CCDB33",
+    borderRadius: 20,
   },
   icon: {
     color: "#C1C1C1",
+  },
+  textButton: {
+    color: "#000",
   },
 });
