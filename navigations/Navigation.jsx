@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
 
-import SalesStack from "./SalesStack";
+import ClientStack from "./ClientStack";
 import TransmissionsStack from "./TransmissionsStack";
 import AccountStack from "./AccountStack";
 
@@ -14,8 +14,8 @@ export default function Navigation() {
   const screenOptions = (route, color) => {
     let iconName;
     switch (route.name) {
-      case "sales":
-        iconName = "cart-arrow-down";
+      case "clients":
+        iconName = "account-convert";
         break;
       case "transmissions":
         iconName = "cube-send";
@@ -54,9 +54,9 @@ export default function Navigation() {
         })}
       >
         <Tab.Screen
-          name="sales"
-          component={SalesStack}
-          options={{ title: "Ventas" }}
+          name="clients"
+          component={ClientStack}
+          options={{ title: "Clientes" }}
         />
         <Tab.Screen
           name="transmissions"

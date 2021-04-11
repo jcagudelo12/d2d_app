@@ -11,7 +11,7 @@ export default function SalesStack() {
         name="sales"
         component={Sales}
         options={{
-          title: "Ventas",
+          title: "Gestión de Clientes",
           headerTitleContainerStyle: {
             backgroundColor: "#5b5b5b",
             left: 0,
