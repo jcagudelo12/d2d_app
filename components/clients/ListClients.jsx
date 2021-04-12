@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { map } from "lodash";
 import {
   StyleSheet,
   Text,

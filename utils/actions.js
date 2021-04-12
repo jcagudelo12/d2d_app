@@ -196,3 +196,27 @@ export const getDocumentById = async (collection, id) => {
   }
   return result;
 };
+
+export const getReasonsDoNotBuy = async () => {
+  const result = {
+    statusResponse: true,
+    error: null,
+    reasons: [],
+  };
+  try {
+    const response = await db
+      .collection("doNotBuy")
+      .orderBy("description")
+      .get();
+
+    response.forEach((doc) => {
+      const reason = doc.data();
+      reason.id = doc.id;
+      result.reasons.push(reason);
+    });
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+  return result;
+};

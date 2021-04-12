@@ -5,7 +5,7 @@ import Client from "../screens/client/Client";
 import AddClient from "../screens/client/AddClient";
 import ClientDetails from "../screens/client/ClientDetails";
 import ListProducts from "../components/sale/ListProducts";
-import ListDoNotBuy from "../screens/sale/ListDoNotBuy";
+import DoNotBuy from "../screens/sale/DoNotBuy";
 
 const Stack = createStackNavigator();
 
@@ -90,7 +90,7 @@ export default function ClientStack() {
       />
       <Stack.Screen
         name="doNotBuy"
-        component={ListDoNotBuy}
+        component={DoNotBuy}
         options={{
           title: "Motivo de No Compra",
           headerTitleContainerStyle: {
