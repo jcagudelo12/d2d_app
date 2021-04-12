@@ -15,12 +15,19 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "jcagudelo12.d2d"
     },
     "android": {
+      "package": "jcagudelo12.d2d",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDMOnvuH5Bgwgi5N3LS2dX1ZDAQnb0OpbM"
+        }
       },
       "permissions": [
         "CAMERA_ROLL",

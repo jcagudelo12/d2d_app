@@ -4,9 +4,9 @@ import { Dimensions, StyleSheet, Text, ScrollView, View } from "react-native";
 import CarouselImage from "../../components/CarouselImage";
 import Loading from "../../components/Loading";
 import MapView from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import { getDocumentById } from "../../utils/actions";
 import { formatPhone, getCurrentLocation } from "../../utils/helpers";
-import { Button } from "react-native-elements";
 import { _ScrollView } from "react-native";
 
 const widthScreen = Dimensions.get("window").width;
@@ -16,6 +16,7 @@ export default function ClientDetails({ navigation, route }) {
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newRegion, setNewRegion] = useState(null);
+  const GOOGLE_MAPS_APIKEY = "AIzaSyDMOnvuH5Bgwgi5N3LS2dX1ZDAQnb0OpbM";
 
   const { clientSelected } = route.params;
   useFocusEffect(
@@ -54,6 +55,8 @@ export default function ClientDetails({ navigation, route }) {
     location,
   } = clientInfo;
 
+  console.log("origen:", location);
+  console.log("destino:", newRegion);
   navigation.setOptions({ title: name });
   const maps = () => {
     setShowModal(true);
@@ -87,29 +90,43 @@ export default function ClientDetails({ navigation, route }) {
             style={styles.mapStyle}
             initialRegion={location}
             showsUserLocation={true}
-            pitchEnabled={true}
-            showsCompass={true}
             liteMode={false}
             showsBuildings={true}
-            showsTraffic={true}
-            showsIndoors={true}
           >
-            <MapView.Marker
-              coordinate={{
-                latitude: location.latitude,
-                longitude: location.longitude,
-              }}
-              title={name.concat(" - ", address)}
-              image={require("../../assets/pin.png")}
-            />
             {newRegion && (
-              <MapView.Marker
-                coordinate={{
-                  latitude: newRegion.latitude,
-                  longitude: newRegion.longitude,
-                }}
-                title={"Mi ubicación actual"}
-              />
+              <>
+                <MapView.Marker
+                  coordinate={{
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                  }}
+                  title={name.concat(" - ", address)}
+                  image={require("../../assets/pin.png")}
+                />
+                <MapView.Marker
+                  coordinate={{
+                    latitude: newRegion.latitude,
+                    longitude: newRegion.longitude,
+                  }}
+                  title={"Mi ubicación actual"}
+                />
+                <MapViewDirections
+                  origin={{
+                    latitude: newRegion.latitude,
+                    longitude: newRegion.longitude,
+                  }}
+                  destination={{
+                    latitude: location.latitude,
+                    longitude: location.longitude,
+                  }}
+                  strokeWidth={3}
+                  strokeColor="hotpink"
+                  optimizeWaypoints={true}
+                  apikey={GOOGLE_MAPS_APIKEY}
+                  mode="DRIVING"
+                  language="es"
+                />
+              </>
             )}
           </MapView>
         )}
