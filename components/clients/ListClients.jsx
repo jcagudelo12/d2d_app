@@ -106,7 +106,10 @@ const Client = ({
           <Icon
             type="material-community"
             name="cart-arrow-down"
-            color="#474747"
+            color={"#CCDB33"}
+            size={30}
+            reverse
+            reverseColor={"#000"}
           />
           <ListItem.Content>
             <ListItem.Title>Venta</ListItem.Title>
@@ -115,6 +118,7 @@ const Client = ({
             type="material-community"
             name="arrow-right-thick"
             color="#474747"
+            size={30}
           />
         </ListItem>
         <ListItem
@@ -128,7 +132,10 @@ const Client = ({
           <Icon
             type="material-community"
             name="cash-multiple"
-            color="#474747"
+            color={"#CCDB33"}
+            size={30}
+            reverse
+            reverseColor={"#000"}
           />
           <ListItem.Content>
             <ListItem.Title>Cartera y Recaudo</ListItem.Title>
@@ -136,7 +143,8 @@ const Client = ({
           <Icon
             type="material-community"
             name="arrow-right-thick"
-            color="#474747"
+            color={"#474747"}
+            size={30}
           />
         </ListItem>
         <ListItem
@@ -147,14 +155,22 @@ const Client = ({
             setShowModal(false);
           }}
         >
-          <Icon type="material-community" name="cart-off" color="#474747" />
+          <Icon
+            type="material-community"
+            name="cart-off"
+            color={"#CCDB33"}
+            size={30}
+            reverse
+            reverseColor={"#000"}
+          />
           <ListItem.Content>
             <ListItem.Title>No Compra</ListItem.Title>
           </ListItem.Content>
           <Icon
             type="material-community"
             name="arrow-right-thick"
-            color="#474747"
+            color={"#474747"}
+            size={30}
           />
         </ListItem>
         <ListItem
@@ -165,7 +181,14 @@ const Client = ({
             setShowModal(false);
           }}
         >
-          <Icon type="material-community" name="information" color="#474747" />
+          <Icon
+            type="material-community"
+            name="information"
+            color={"#CCDB33"}
+            size={30}
+            reverse
+            reverseColor={"#000"}
+          />
           <ListItem.Content>
             <ListItem.Title>Datos del cliente</ListItem.Title>
           </ListItem.Content>
@@ -173,6 +196,7 @@ const Client = ({
             type="material-community"
             name="arrow-right-thick"
             color="#474747"
+            size={30}
           />
         </ListItem>
       </Modal>
