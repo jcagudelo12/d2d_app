@@ -1,11 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { Dimensions, StyleSheet, Text, ScrollView, View } from "react-native";
 import CarouselImage from "../../components/CarouselImage";
 import Loading from "../../components/Loading";
 import MapView from "react-native-maps";
 import { getDocumentById } from "../../utils/actions";
-import { formatPhone } from "../../utils/helpers";
+import { formatPhone, getCurrentLocation } from "../../utils/helpers";
 import { Button } from "react-native-elements";
 import { _ScrollView } from "react-native";
 
@@ -15,6 +15,7 @@ export default function ClientDetails({ navigation, route }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [newRegion, setNewRegion] = useState(null);
 
   const { clientSelected } = route.params;
   useFocusEffect(
@@ -28,6 +29,15 @@ export default function ClientDetails({ navigation, route }) {
       setLoading(false);
     }, [])
   );
+
+  useEffect(() => {
+    (async () => {
+      const response = await getCurrentLocation();
+      if (response.status) {
+        setNewRegion(response.location);
+      }
+    })();
+  }, []);
 
   const {
     nit,
@@ -45,7 +55,6 @@ export default function ClientDetails({ navigation, route }) {
   } = clientInfo;
 
   navigation.setOptions({ title: name });
-
   const maps = () => {
     setShowModal(true);
   };
@@ -78,6 +87,12 @@ export default function ClientDetails({ navigation, route }) {
             style={styles.mapStyle}
             initialRegion={location}
             showsUserLocation={true}
+            pitchEnabled={true}
+            showsCompass={true}
+            liteMode={false}
+            showsBuildings={true}
+            showsTraffic={true}
+            showsIndoors={true}
           >
             <MapView.Marker
               coordinate={{
@@ -85,7 +100,17 @@ export default function ClientDetails({ navigation, route }) {
                 longitude: location.longitude,
               }}
               title={name.concat(" - ", address)}
+              image={require("../../assets/pin.png")}
             />
+            {newRegion && (
+              <MapView.Marker
+                coordinate={{
+                  latitude: newRegion.latitude,
+                  longitude: newRegion.longitude,
+                }}
+                title={"Mi ubicación actual"}
+              />
+            )}
           </MapView>
         )}
       </View>
