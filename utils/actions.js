@@ -137,7 +137,7 @@ export const getClients = async (limitClients, userId) => {
   try {
     const response = await db
       .collection("clients")
-      .where("createdBy", "==", userId)
+      .orderBy("name")
       .limit(limitClients)
       .get();
     if (response.docs.length > 0) {
@@ -165,8 +165,8 @@ export const getMoreClients = async (limitClients, startClient, userId) => {
   try {
     const response = await db
       .collection("clients")
-      .where("createdBy", "==", userId)
-      .startAfter(startClient.data())
+      .orderBy("name")
+      .startAfter(startClient.data().createAt)
       .limit(limitClients)
       .get();
     if (response.docs.length > 0) {

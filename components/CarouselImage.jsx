@@ -23,7 +23,7 @@ export default function CarouselImage({
   return (
     <View>
       <Carousel
-        layout={"default"}
+        layout={"tinder"}
         data={images}
         sliderWidth={width}
         itemWidth={width}
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     marginHorizontal: 2,
-    backgroundColor: "#442484",
+    backgroundColor: "#CCDB33",
   },
   dotInactive: {
     width: 14,
