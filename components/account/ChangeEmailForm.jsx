@@ -99,7 +99,8 @@ export default function ChangeEmailForm({
         }
       />
       <Button
-        title="Cambiar Email."
+        title="Cambiar Email"
+        titleStyle={{ color: "#000" }}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}

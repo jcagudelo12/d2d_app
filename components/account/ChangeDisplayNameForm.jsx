@@ -64,6 +64,7 @@ export default function ChangeDisplayNameForm({
       />
       <Button
         title="Cambiar nombres y apellidos"
+        titleStyle={{ color: "#000" }}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}

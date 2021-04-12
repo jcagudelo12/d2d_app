@@ -148,6 +148,7 @@ export default function ChangePasswordForm({ email, setShowModal, toastRef }) {
       />
       <Button
         title="Cambiar Contraseña"
+        titleStyle={{ color: "#000" }}
         containerStyle={styles.btnContainer}
         buttonStyle={styles.btn}
         onPress={onSubmit}
