@@ -95,12 +95,14 @@ export default function ClientDetails({ navigation, route }) {
 const styles = StyleSheet.create({
   viewBody: {
     flex: 1,
+    backgroundColor: "#474747",
   },
   containerText: {
     marginHorizontal: 5,
   },
   text: {
     fontSize: 20,
+    color: "#fff",
   },
   mapStyle: {
     marginHorizontal: 5,

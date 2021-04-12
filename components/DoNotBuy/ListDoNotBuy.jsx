@@ -43,8 +43,10 @@ const Reason = ({ reason, navigation, reasonSelected, setReasonSelected }) => {
           <Icon
             type="material-community"
             name="cart-off"
-            color="white"
-            size={50}
+            color={"#CCDB33"}
+            size={30}
+            reverse
+            reverseColor={"#000"}
           />
         </View>
         <View style={styles.viewReasonInformation}>
@@ -66,13 +68,14 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   viewReasonInformation: {
+    justifyContent: "center",
     width: "100%",
     paddingRight: 4,
   },
   reasonTitle: {
-    textAlignVertical: "center",
     color: "white",
     fontSize: 20,
+    //alignSelf: "center",
   },
   divider: {
     backgroundColor: "#CCDB33",
