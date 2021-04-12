@@ -13,9 +13,6 @@ import { formatPhone } from "../../utils/helpers";
 import uuid from "random-uuid-v4";
 
 import Modal from "../Modal";
-import ChangeEmailForm from "../account/ChangeEmailForm";
-import ChangePasswordForm from "../account/ChangePasswordForm";
-import ListProducts from "../sale/ListProducts";
 
 export default function ListClients({ clients, navigation, handleLoadMore }) {
   const [showModal, setShowModal] = useState(false);
@@ -51,8 +48,6 @@ const Client = ({
   showModal,
   setShowModal,
 }) => {
-  const [renderComponent, setRenderComponent] = useState(null);
-
   const {
     id,
     nit,
@@ -71,60 +66,6 @@ const Client = ({
 
   const imageClient = images[0];
 
-  // const generateOptions = () => {
-  //   return [
-  //     {
-  //       title: "Venta",
-  //       iconNameLeft: "cart-arrow-down",
-  //       iconColorLeft: "#474747",
-  //       iconNameRight: "arrow-right-thick",
-  //       iconColorRight: "#474747",
-  //       onPress: () => selectedComponent("sale"),
-  //     },
-  //     {
-  //       title: "Cartera y Recaudo",
-  //       iconNameLeft: "cash-multiple",
-  //       iconColorLeft: "#474747",
-  //       iconNameRight: "arrow-right-thick",
-  //       iconColorRight: "#474747",
-  //       onPress: () => selectedComponent("email"),
-  //     },
-  //     {
-  //       title: "No Compra",
-  //       iconNameLeft: "cart-off",
-  //       iconColorLeft: "#474747",
-  //       iconNameRight: "arrow-right-thick",
-  //       iconColorRight: "#474747",
-  //       onPress: () => selectedComponent("doNotBuy"),
-  //     },
-  //     {
-  //       title: "Datos del cliente",
-  //       iconNameLeft: "information",
-  //       iconColorLeft: "#474747",
-  //       iconNameRight: "arrow-right-thick",
-  //       iconColorRight: "#474747",
-  //       onPress: () => selectedComponent("clientDetails"),
-  //     },
-  //   ];
-  // };
-
-  // const selectedComponent = (key) => {
-  //   switch (key) {
-  //     case "sale":
-  //       {
-  //         navigation.navigate("sale", { id });
-  //       }
-  //       break;
-  //     case "clientDetails":
-  //       navigation.navigate("clientDetails", { id });
-  //       break;
-  //     case "doNotBuy":
-  //       navigation.navigate("doNotBuy", { id });
-  //       break;
-  //   }
-  //   setShowModal(true);
-  // };
-  // const menuOptions = generateOptions();
   const goOptionsClient = () => {
     setClientSelected(id);
     setShowModal(true);
@@ -158,7 +99,10 @@ const Client = ({
         <ListItem
           key={uuid()}
           style={styles.menuItem}
-          onPress={() => console.log("id heredado: ", clientSelected)}
+          onPress={() => {
+            navigation.navigate("sale", { clientSelected });
+            setShowModal(false);
+          }}
         >
           <Icon
             type="material-community"
@@ -177,9 +121,50 @@ const Client = ({
         <ListItem
           key={uuid()}
           style={styles.menuItem}
-          onPress={() =>
-            navigation.navigate("clientDetails", { clientSelected })
-          }
+          onPress={() => {
+            navigation.navigate("sale", { clientSelected });
+            setShowModal(false);
+          }}
+        >
+          <Icon
+            type="material-community"
+            name="cash-multiple"
+            color="#474747"
+          />
+          <ListItem.Content>
+            <ListItem.Title>Cartera y Recaudo</ListItem.Title>
+          </ListItem.Content>
+          <Icon
+            type="material-community"
+            name="arrow-right-thick"
+            color="#474747"
+          />
+        </ListItem>
+        <ListItem
+          key={uuid()}
+          style={styles.menuItem}
+          onPress={() => {
+            navigation.navigate("doNotBuy", { clientSelected });
+            setShowModal(false);
+          }}
+        >
+          <Icon type="material-community" name="cart-off" color="#474747" />
+          <ListItem.Content>
+            <ListItem.Title>No Compra</ListItem.Title>
+          </ListItem.Content>
+          <Icon
+            type="material-community"
+            name="arrow-right-thick"
+            color="#474747"
+          />
+        </ListItem>
+        <ListItem
+          key={uuid()}
+          style={styles.menuItem}
+          onPress={() => {
+            navigation.navigate("clientDetails", { clientSelected });
+            setShowModal(false);
+          }}
         >
           <Icon type="material-community" name="information" color="#474747" />
           <ListItem.Content>

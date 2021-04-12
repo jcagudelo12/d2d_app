@@ -59,7 +59,7 @@ export default function Clients({ navigation }) {
   if (user === null) {
     return <Loading isVisible={true} text="Cargando..." />;
   }
-
+  console.log("start:", startClient);
   return (
     <View style={styles.viewBody}>
       {size(clients) > 0 ? (
