@@ -3,10 +3,9 @@ import { useFocusEffect } from "@react-navigation/native";
 import { Dimensions, StyleSheet, Text, ScrollView, View } from "react-native";
 import CarouselImage from "../../components/CarouselImage";
 import Loading from "../../components/Loading";
-import { MapView, Marker } from "react-native-maps";
+import MapView from "react-native-maps";
 import { getDocumentById } from "../../utils/actions";
 import { formatPhone } from "../../utils/helpers";
-import Modal from "../../components/Modal";
 import { Button } from "react-native-elements";
 import { _ScrollView } from "react-native";
 
@@ -16,7 +15,6 @@ export default function ClientDetails({ navigation, route }) {
   const [activeSlide, setActiveSlide] = useState(0);
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const { clientSelected } = route.params;
   useFocusEffect(
@@ -26,6 +24,7 @@ export default function ClientDetails({ navigation, route }) {
       if (response.statusResponse) {
         setClientInfo(response.document);
       }
+
       setLoading(false);
     }, [])
   );
@@ -73,21 +72,23 @@ export default function ClientDetails({ navigation, route }) {
         <Text style={styles.text}>Cupo: {quota}</Text>
         <Text style={styles.text}>Condición de Pago: {paymentCondition}</Text>
       </View>
-      {/* <View>
-        <MapView
-          style={styles.mapStyle}
-          initialRegion={location}
-          showsUserLocation={true}
-        >
-          <Marker
-            coordinate={{
-              latitude: newRegion.latitude,
-              longitude: newRegion.longitude,
-            }}
-            draggable
-          />
-        </MapView>
-      </View> */}
+      <View style={styles.mapView}>
+        {location && (
+          <MapView
+            style={styles.mapStyle}
+            initialRegion={location}
+            showsUserLocation={true}
+          >
+            <MapView.Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              title={name.concat(" - ", address)}
+            />
+          </MapView>
+        )}
+      </View>
     </ScrollView>
   );
 }
@@ -103,6 +104,9 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     color: "#fff",
+  },
+  mapView: {
+    marginVertical: 30,
   },
   mapStyle: {
     marginHorizontal: 5,
