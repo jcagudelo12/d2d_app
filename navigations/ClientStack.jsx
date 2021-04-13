@@ -4,7 +4,7 @@ import Clients from "../screens/client/Clients";
 import Client from "../screens/client/Client";
 import AddClient from "../screens/client/AddClient";
 import ClientDetails from "../screens/client/ClientDetails";
-import Products from "../screens/products/Products";
+import Sales from "../screens/sale/Sales";
 import AddProduct from "../screens/products/AddProduct";
 import DoNotBuy from "../screens/sale/DoNotBuy";
 
@@ -128,10 +128,10 @@ export default function ClientStack() {
         }}
       />
       <Stack.Screen
-        name="products"
-        component={Products}
+        name="sales"
+        component={Sales}
         options={{
-          title: "Listado de Productos",
+          title: "Venta",
           headerTitleContainerStyle: {
             backgroundColor: "#5b5b5b",
             left: 0,

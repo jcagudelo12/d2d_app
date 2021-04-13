@@ -99,7 +99,7 @@ const Client = ({
           key={uuid()}
           style={styles.menuItem}
           onPress={() => {
-            navigation.navigate("products", { clientSelected });
+            navigation.navigate("sales", { clientSelected });
             setShowModal(false);
           }}
         >
@@ -125,7 +125,7 @@ const Client = ({
           key={uuid()}
           style={styles.menuItem}
           onPress={() => {
-            navigation.navigate("products", { clientSelected });
+            navigation.navigate("sales", { clientSelected });
             setShowModal(false);
           }}
         >
