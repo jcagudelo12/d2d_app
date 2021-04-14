@@ -111,20 +111,12 @@ export default function ClientDetails({ navigation, route }) {
                   title={"Mi ubicación actual"}
                 />
                 <MapViewDirections
-                  origin={{
-                    latitude: newRegion.latitude,
-                    longitude: newRegion.longitude,
-                  }}
-                  destination={{
-                    latitude: location.latitude,
-                    longitude: location.longitude,
-                  }}
-                  strokeWidth={3}
+                  origin={newRegion}
+                  destination={location}
+                  strokeWidth={5}
                   strokeColor="hotpink"
                   optimizeWaypoints={true}
                   apikey={GOOGLE_MAPS_APIKEY}
-                  mode="DRIVING"
-                  language="es"
                 />
               </>
             )}

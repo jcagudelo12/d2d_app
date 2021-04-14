@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Divider, Image, ListItem, Icon } from "react-native-elements";
 import uuid from "random-uuid-v4";
 
@@ -78,112 +80,7 @@ const Product = ({
         </View>
       </View>
       <Divider style={styles.divider} />
-      {/* <Modal isVisible={showModal} setVisible={setShowModal}>
-          <ListItem
-            key={uuid()}
-            style={styles.menuItem}
-            onPress={() => {
-              navigation.navigate("sale", { clientSelected });
-              setShowModal(false);
-            }}
-          >
-            <Icon
-              type="material-community"
-              name="cart-arrow-down"
-              color={"#CCDB33"}
-              size={30}
-              reverse
-              reverseColor={"#000"}
-            />
-            <ListItem.Content>
-              <ListItem.Title>Venta</ListItem.Title>
-            </ListItem.Content>
-            <Icon
-              type="material-community"
-              name="arrow-right-thick"
-              color="#474747"
-              size={30}
-            />
-          </ListItem>
-          <ListItem
-            key={uuid()}
-            style={styles.menuItem}
-            onPress={() => {
-              navigation.navigate("sale", { clientSelected });
-              setShowModal(false);
-            }}
-          >
-            <Icon
-              type="material-community"
-              name="cash-multiple"
-              color={"#CCDB33"}
-              size={30}
-              reverse
-              reverseColor={"#000"}
-            />
-            <ListItem.Content>
-              <ListItem.Title>Cartera y Recaudo</ListItem.Title>
-            </ListItem.Content>
-            <Icon
-              type="material-community"
-              name="arrow-right-thick"
-              color={"#474747"}
-              size={30}
-            />
-          </ListItem>
-          <ListItem
-            key={uuid()}
-            style={styles.menuItem}
-            onPress={() => {
-              navigation.navigate("doNotBuy", { clientSelected });
-              setShowModal(false);
-            }}
-          >
-            <Icon
-              type="material-community"
-              name="cart-off"
-              color={"#CCDB33"}
-              size={30}
-              reverse
-              reverseColor={"#000"}
-            />
-            <ListItem.Content>
-              <ListItem.Title>No Compra</ListItem.Title>
-            </ListItem.Content>
-            <Icon
-              type="material-community"
-              name="arrow-right-thick"
-              color={"#474747"}
-              size={30}
-            />
-          </ListItem>
-          <ListItem
-            key={uuid()}
-            style={styles.menuItem}
-            onPress={() => {
-              navigation.navigate("clientDetails", { clientSelected });
-              setShowModal(false);
-            }}
-          >
-            <Icon
-              type="material-community"
-              name="information"
-              color={"#CCDB33"}
-              size={30}
-              reverse
-              reverseColor={"#000"}
-            />
-            <ListItem.Content>
-              <ListItem.Title>Datos del cliente</ListItem.Title>
-            </ListItem.Content>
-            <Icon
-              type="material-community"
-              name="arrow-right-thick"
-              color="#474747"
-              size={30}
-            />
-          </ListItem>
-        </Modal> */}
+      <Modal isVisible={showModal} setVisible={setShowModal}></Modal>
     </TouchableOpacity>
   );
 };

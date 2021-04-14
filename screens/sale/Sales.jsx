@@ -1,38 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Products from "../../screens/products/Products";
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
-
-function SettingsScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-      <Text>Settings!</Text>
-    </View>
-  );
-}
+import Detail from "../sale/Detail";
+import Order from "../sale/Order";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Sales() {
+export default function Sales({ navigation }) {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Productos" component={Products} />
-      <Tab.Screen name="Detalle" component={SettingsScreen} />
-      <Tab.Screen name="Resumen" component={SettingsScreen} />
+      <Tab.Screen name="Detalle" component={Detail} />
+      <Tab.Screen name="Resumen" component={Order} />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 40,
-  },
+  container: {},
 });

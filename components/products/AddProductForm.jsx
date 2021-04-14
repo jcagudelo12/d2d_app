@@ -10,7 +10,6 @@ import {
   getCurrentUser,
   uploadImage,
 } from "../../utils/actions";
-import Modal from "../Modal";
 
 const widthScreen = Dimensions.get("window").width;
 

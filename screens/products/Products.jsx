@@ -8,7 +8,7 @@ import { getProducts } from "../../utils/actions";
 import { size } from "lodash";
 import ListProducts from "../../components/products/ListProducts";
 
-export default function Products({ navigation }) {
+export default function Products({ navigation, sale, setSale }) {
   const [user, setUser] = useState(null);
   const [startProduct, setStartProduct] = useState(null);
   const [products, setProducts] = useState([]);
