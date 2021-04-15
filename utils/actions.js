@@ -128,6 +128,7 @@ export const addDocumentWithoutId = async (collection, data) => {
 };
 
 export const getClients = async (limitClients, userId) => {
+  console.log(userId);
   const result = {
     statusResponse: true,
     error: null,
@@ -137,7 +138,7 @@ export const getClients = async (limitClients, userId) => {
   try {
     const response = await db
       .collection("clients")
-      .orderBy("name")
+      .orderBy("name", "asc")
       .limit(limitClients)
       .get();
     if (response.docs.length > 0) {
@@ -159,14 +160,14 @@ export const getMoreClients = async (limitClients, startClient, userId) => {
   const result = {
     statusResponse: true,
     error: null,
-    client: [],
+    clients: [],
     startClient: null,
   };
   try {
     const response = await db
       .collection("clients")
-      .orderBy("name")
-      .startAfter(startClient.data().createAt)
+      .orderBy("name", "asc")
+      .startAfter(startClient.data().name)
       .limit(limitClients)
       .get();
     if (response.docs.length > 0) {

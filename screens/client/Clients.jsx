@@ -27,14 +27,17 @@ export default function Clients({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const response = await getClients(limitClients, getCurrentUser().uid);
-      if (response.statusResponse) {
-        setStartClient(response.startClient);
-        setClients(response.clients);
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const response = await getClients(limitClients, getCurrentUser().uid);
+        if (response.statusResponse) {
+          setStartClient(response.startClient);
+          setClients(response.clients);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+      getData();
     }, [])
   );
 

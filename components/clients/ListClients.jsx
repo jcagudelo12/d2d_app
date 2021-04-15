@@ -70,10 +70,8 @@ const Client = ({
     setShowModal(true);
   };
 
-  const onPress = () => goOptionsClient();
-
   return (
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={goOptionsClient}>
       <View style={styles.viewClient}>
         <View style={styles.viewClientImage}>
           <Image
