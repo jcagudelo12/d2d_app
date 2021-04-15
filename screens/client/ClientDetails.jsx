@@ -66,24 +66,11 @@ export default function ClientDetails({ navigation, route }) {
       <Loading isVisible={loading} />
       <CarouselImage
         images={images}
-        height={250}
+        height={300}
         width={widthScreen}
         activeSlide={activeSlide}
         setActiveSlide={setActiveSlide}
       />
-      <View style={styles.containerText}>
-        <Text style={styles.text}>Nombre: {name}</Text>
-        <Text style={styles.text}>Nit: {nit}</Text>
-        <Text style={styles.text}>Dirección: {address}</Text>
-        <Text style={styles.text}>
-          Teléfono: {formatPhone(callingCode, phone)}
-        </Text>
-        <Text style={styles.text}>Email: {email}</Text>
-        <Text style={styles.text}>Ciudad: {city}</Text>
-        <Text style={styles.text}>Departamento: {department}</Text>
-        <Text style={styles.text}>Cupo: {quota}</Text>
-        <Text style={styles.text}>Condición de Pago: {paymentCondition}</Text>
-      </View>
       <View style={styles.mapView}>
         {location && (
           <MapView
@@ -123,6 +110,19 @@ export default function ClientDetails({ navigation, route }) {
           </MapView>
         )}
       </View>
+      <View style={styles.containerText}>
+        <Text style={styles.text}>Nombre: {name}</Text>
+        <Text style={styles.text}>Nit: {nit}</Text>
+        <Text style={styles.text}>Dirección: {address}</Text>
+        <Text style={styles.text}>
+          Teléfono: {formatPhone(callingCode, phone)}
+        </Text>
+        <Text style={styles.text}>Email: {email}</Text>
+        <Text style={styles.text}>Ciudad: {city}</Text>
+        <Text style={styles.text}>Departamento: {department}</Text>
+        <Text style={styles.text}>Cupo: {quota}</Text>
+        <Text style={styles.text}>Condición de Pago: {paymentCondition}</Text>
+      </View>
     </ScrollView>
   );
 }
@@ -133,19 +133,27 @@ const styles = StyleSheet.create({
     backgroundColor: "#474747",
   },
   containerText: {
-    marginHorizontal: 5,
+    marginHorizontal: 10,
+    marginBottom: 30,
   },
   text: {
     fontSize: 20,
     color: "#fff",
   },
   mapView: {
-    marginVertical: 30,
+    marginVertical: 10,
+    width: "90%",
+    alignSelf: "center",
+    backgroundColor: "white",
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   mapStyle: {
-    marginHorizontal: 5,
-    width: "80%",
-    height: 550,
+    marginHorizontal: 2,
+    width: "95%",
+    height: 200,
     alignSelf: "center",
   },
 });
