@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import { Divider, Image, ListItem, Icon } from "react-native-elements";
+import { Divider, Image, Input, ListItem, Icon } from "react-native-elements";
 import uuid from "random-uuid-v4";
 
 import Modal from "../Modal";
@@ -19,6 +19,12 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
   const [productSelected, setProductSelected] = useState();
   return (
     <View>
+      <Input
+        placeholder="   Buscar producto"
+        onChange={(e) => console.log(e.target.value)}
+        style={styles.search}
+      />
+
       <FlatList
         data={products}
         keyExtractor={(item, index) => index.toString()}
@@ -80,7 +86,15 @@ const Product = ({
         </View>
       </View>
       <Divider style={styles.divider} />
-      <Modal isVisible={showModal} setVisible={setShowModal}></Modal>
+      <Modal isVisible={showModal} setVisible={setShowModal}>
+        <Text style={styles.productTitle}>{reference}</Text>
+        <Text style={styles.productInformation}>
+          Descripción: {description}
+        </Text>
+
+        <Text style={styles.productInformation}>Precio: {price}</Text>
+        <Text style={styles.productInformation}>Stock: {stock}</Text>
+      </Modal>
     </TouchableOpacity>
   );
 };
@@ -117,5 +131,12 @@ const styles = StyleSheet.create({
   divider: {
     backgroundColor: "#CCDB33",
     margin: 2,
+  },
+  search: {
+    color: "white",
+    borderColor: "#CCDB33",
+    backgroundColor: "white",
+    marginTop: 5,
+    borderRadius: 10,
   },
 });
