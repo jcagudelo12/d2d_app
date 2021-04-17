@@ -6,24 +6,33 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Dimensions,
 } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-import { Divider, Image, Input, ListItem, Icon } from "react-native-elements";
-import uuid from "random-uuid-v4";
-
+import { Divider, Image, Input, Button } from "react-native-elements";
 import Modal from "../Modal";
+import CarouselImage from "../../components/CarouselImage";
+
+const widthScreen = Dimensions.get("window").width;
 
 export default function ListProducts({ products, navigation, handleLoadMore }) {
   const [showModal, setShowModal] = useState(false);
-  const [productSelected, setProductSelected] = useState();
+  const [wordToSearch, setWordToSearch] = useState("");
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [modalBody, setModalBody] = useState({});
+  const widthImages = (widthScreen * 85) / 100;
+
+  const onChange = (e, type) => {
+    setModalBody({ ...modalBody, [type]: e.nativeEvent.text });
+  };
+
   return (
     <View>
-      <Input
+      {/* <Input
         placeholder="   Buscar producto"
-        onChange={(e) => console.log(e.target.value)}
+        onChange={(e) => setWordToSearch(e.nativeEvent.text)}
         style={styles.search}
-      />
+      /> */}
 
       <FlatList
         data={products}
@@ -33,69 +42,115 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
         renderItem={(product) => (
           <Product
             product={product}
-            navigation={navigation}
-            productSelected={productSelected}
-            setProductSelected={setProductSelected}
-            showModal={showModal}
             setShowModal={setShowModal}
+            setModalBody={setModalBody}
           />
         )}
       />
+      <Modal isVisible={showModal} setVisible={setShowModal}>
+        <CarouselImage
+          images={modalBody.images}
+          height={300}
+          width={widthImages}
+          activeSlide={activeSlide}
+          setActiveSlide={setActiveSlide}
+        />
+        <View style={{ marginTop: 10 }}>
+          <Text>
+            <Text style={styles.textTitleModal}>Referencia: </Text>
+            {modalBody.reference}
+          </Text>
+          <Text>
+            <Text style={styles.textTitleModal}>Descripción: </Text>
+            {modalBody.description}
+          </Text>
+
+          <Text>
+            <Text style={styles.textTitleModal}>Precio: </Text>
+            {modalBody.price}
+          </Text>
+          <Text>
+            <Text style={styles.textTitleModal}>Stock: </Text>
+            {modalBody.stock}
+          </Text>
+          <Input
+            placeholder="Ingresar cantidad"
+            onChange={(e) => onChange(e, "quantity")}
+            keyboardType="number-pad"
+          />
+          <Button
+            buttonStyle={styles.btnAddArticle}
+            title="Agregar producto"
+            titleStyle={styles.btnTitleAddArticle}
+            onPress={() => {
+              console.log("modalBody", modalBody);
+              setShowModal(false);
+            }}
+            icon={{
+              type: "material-community",
+              name: "plus-circle",
+              color: "#000",
+            }}
+          />
+        </View>
+      </Modal>
     </View>
   );
 }
 
-const Product = ({
-  product,
-  navigation,
-  productSelected,
-  setProductSelected,
-  showModal,
-  setShowModal,
-}) => {
+const Product = ({ product, setShowModal, setModalBody }) => {
   const { id, reference, images, description, price, stock } = product.item;
 
   const imageProduct = images[0];
 
   const goOptionsProduct = () => {
-    setProductSelected(id);
+    const modalBody = () => {
+      const body = {
+        id,
+        reference,
+        images,
+        description,
+        price,
+        stock,
+      };
+      return body;
+    };
+    setModalBody(modalBody);
     setShowModal(true);
   };
 
   const onPress = () => goOptionsProduct();
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <View style={styles.viewProduct}>
-        <View style={styles.viewProductImage}>
-          <Image
-            resizeMode="cover"
-            PlaceholderContent={<ActivityIndicator color="#ffffff" />}
-            source={{ uri: imageProduct }}
-            style={styles.imageProduct}
-          />
-        </View>
-        <View style={styles.viewProductInformation}>
-          <Text style={styles.productTitle}>{reference}</Text>
-          <Text style={styles.productInformation}>
-            Descripción: {description}
-          </Text>
+    <>
+      <TouchableOpacity onPress={onPress}>
+        <View style={styles.viewProduct}>
+          <View style={styles.viewProductImage}>
+            <Image
+              resizeMode="cover"
+              PlaceholderContent={<ActivityIndicator color="#ffffff" />}
+              source={{ uri: imageProduct }}
+              style={styles.imageProduct}
+            />
+          </View>
+          <View style={styles.viewProductInformation}>
+            <Text style={styles.productTitle}>{reference}</Text>
+            <Text style={styles.productInformation}>
+              <Text style={styles.textTitleModal}>Descripción: </Text>
+              {description}
+            </Text>
 
-          <Text style={styles.productInformation}>Precio: {price}</Text>
-          <Text style={styles.productInformation}>Stock: {stock}</Text>
+            <Text style={styles.productInformation}>
+              <Text style={styles.textTitleModal}>Precio: </Text> {price}
+            </Text>
+            <Text style={styles.productInformation}>
+              <Text style={styles.textTitleModal}>Stock: </Text> {stock}
+            </Text>
+          </View>
         </View>
-      </View>
-      <Divider style={styles.divider} />
-      <Modal isVisible={showModal} setVisible={setShowModal}>
-        <Text style={styles.productTitle}>{reference}</Text>
-        <Text style={styles.productInformation}>
-          Descripción: {description}
-        </Text>
-
-        <Text style={styles.productInformation}>Precio: {price}</Text>
-        <Text style={styles.productInformation}>Stock: {stock}</Text>
-      </Modal>
-    </TouchableOpacity>
+        <Divider style={styles.divider} />
+      </TouchableOpacity>
+    </>
   );
 };
 
@@ -138,5 +193,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     marginTop: 5,
     borderRadius: 10,
+  },
+  textTitleModal: {
+    fontWeight: "bold",
+  },
+  btnAddArticle: {
+    backgroundColor: "#CCDB33",
+  },
+  btnTitleAddArticle: {
+    color: "#000",
   },
 });
