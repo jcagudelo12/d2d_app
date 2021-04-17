@@ -8,10 +8,11 @@ import {
   ActivityIndicator,
   Dimensions,
 } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Divider, Image, Input, Button } from "react-native-elements";
 import Modal from "../Modal";
 import CarouselImage from "../../components/CarouselImage";
+import { storeData } from "../../utils/actions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const widthScreen = Dimensions.get("window").width;
 
@@ -19,13 +20,20 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
   const [showModal, setShowModal] = useState(false);
   const [wordToSearch, setWordToSearch] = useState("");
   const [activeSlide, setActiveSlide] = useState(0);
-  const [modalBody, setModalBody] = useState({});
+  const [modalBody, setModalBody] = useState([]);
+  const [listArticles, setListArticles] = useState([]);
   const widthImages = (widthScreen * 85) / 100;
+
+  const addArticleToSale = async () => {
+    setListArticles([...listArticles, modalBody]);
+    setShowModal(false);
+  };
 
   const onChange = (e, type) => {
     setModalBody({ ...modalBody, [type]: e.nativeEvent.text });
   };
 
+  console.log(listArticles);
   return (
     <View>
       {/* <Input
@@ -83,8 +91,7 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
             title="Agregar producto"
             titleStyle={styles.btnTitleAddArticle}
             onPress={() => {
-              console.log("modalBody", modalBody);
-              setShowModal(false);
+              addArticleToSale();
             }}
             icon={{
               type: "material-community",
