@@ -55,8 +55,6 @@ export default function ClientDetails({ navigation, route }) {
     location,
   } = clientInfo;
 
-  console.log("origen:", location);
-  console.log("destino:", newRegion);
   navigation.setOptions({ title: name });
   const maps = () => {
     setShowModal(true);

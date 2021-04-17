@@ -128,7 +128,6 @@ export const addDocumentWithoutId = async (collection, data) => {
 };
 
 export const getClients = async (limitClients, userId) => {
-  console.log(userId);
   const result = {
     statusResponse: true,
     error: null,

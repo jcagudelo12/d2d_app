@@ -28,7 +28,7 @@ export default function Login() {
           containerStyle={styles.btnWhatsappContainer}
           buttonStyle={styles.btnWhatsapp}
           onPress={() => {
-            console.log("melo");
+            console.log("Fuck Yeah!!!");
           }}
         ></Button>
         <CreateAccount />

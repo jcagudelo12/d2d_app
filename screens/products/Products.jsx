@@ -15,9 +15,8 @@ export default function Products({ navigation }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  console.log("listArticles desde global full", global.listArticles);
-
   const limitProducts = 6;
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((userInfo) => {
       userInfo ? setUser(true) : setUser(false);

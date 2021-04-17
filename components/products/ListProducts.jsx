@@ -33,7 +33,6 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
     setModalBody({ ...modalBody, [type]: e.nativeEvent.text });
   };
 
-  console.log(listArticles);
   return (
     <View>
       {/* <Input
