@@ -3,7 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Icon } from "react-native-elements";
-import { getCurrentUser } from "../utils/actions";
+import firebase from "firebase/app";
 
 import ClientStack from "./ClientStack";
 import TransmissionsStack from "./TransmissionsStack";
@@ -12,9 +12,11 @@ import AccountStack from "./AccountStack";
 const Tab = createBottomTabNavigator();
 
 export default function Navigation() {
-  // const [user, setUser] = useState(null);
+  const [userLogged, setUserLogged] = useState(false);
 
-  // useEffect(() => setUser(getCurrentUser()), []);
+  firebase.auth().onAuthStateChanged((user) => {
+    user ? setUserLogged(true) : setUserLogged(false);
+  });
 
   const screenOptions = (route, color) => {
     let iconName;
@@ -43,39 +45,61 @@ export default function Navigation() {
 
   return (
     <NavigationContainer>
-      {/* {user && ( */}
-      <Tab.Navigator
-        initialRouteName="account"
-        tabBarOptions={{
-          inactiveTintColor: "#fff",
-          activeTintColor: "#CCDB33",
-          keyboardHidesTabBar: true,
-          style: {
-            backgroundColor: "#5b5b5b",
-            borderTopWidth: 0,
-          },
-        }}
-        screenOptions={({ route }) => ({
-          tabBarIcon: ({ color }) => screenOptions(route, color),
-        })}
-      >
-        <Tab.Screen
-          name="clients"
-          component={ClientStack}
-          options={{ title: "Clientes" }}
-        />
-        <Tab.Screen
-          name="transmissions"
-          component={TransmissionsStack}
-          options={{ title: "Enviado" }}
-        />
-        <Tab.Screen
-          name="account"
-          component={AccountStack}
-          options={{ title: "Cuenta" }}
-        />
-      </Tab.Navigator>
-      {/* )} */}
+      {userLogged ? (
+        <Tab.Navigator
+          initialRouteName="account"
+          tabBarOptions={{
+            inactiveTintColor: "#fff",
+            activeTintColor: "#CCDB33",
+            keyboardHidesTabBar: true,
+            style: {
+              backgroundColor: "#5b5b5b",
+              borderTopWidth: 0,
+            },
+          }}
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color }) => screenOptions(route, color),
+          })}
+        >
+          <Tab.Screen
+            name="clients"
+            component={ClientStack}
+            options={{ title: "Clientes" }}
+          />
+          <Tab.Screen
+            name="transmissions"
+            component={TransmissionsStack}
+            options={{ title: "Enviado" }}
+          />
+          <Tab.Screen
+            name="account"
+            component={AccountStack}
+            options={{ title: "Cuenta" }}
+          />
+        </Tab.Navigator>
+      ) : (
+        <Tab.Navigator
+          initialRouteName="account"
+          tabBarOptions={{
+            inactiveTintColor: "#fff",
+            activeTintColor: "#CCDB33",
+            keyboardHidesTabBar: true,
+            style: {
+              backgroundColor: "#5b5b5b",
+              borderTopWidth: 0,
+            },
+          }}
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color }) => screenOptions(route, color),
+          })}
+        >
+          <Tab.Screen
+            name="account"
+            component={AccountStack}
+            options={{ title: "Cuenta" }}
+          />
+        </Tab.Navigator>
+      )}
     </NavigationContainer>
   );
 }
