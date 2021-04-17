@@ -70,25 +70,6 @@ export default function ClientStack() {
           headerTitleStyle: { color: "#CCDB33" },
         }}
       />
-      {/* <Stack.Screen
-        name="sale"
-        component={ListProducts}
-        options={{
-          title: "Listado de Productos",
-          headerTitleContainerStyle: {
-            backgroundColor: "#5b5b5b",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            top: 0,
-            justifyContent: "center",
-            paddingHorizontal: 10,
-            borderTopWidth: 2,
-            borderColor: "#CCDB33",
-          },
-          headerTitleStyle: { color: "#CCDB33" },
-        }}
-      /> */}
       <Stack.Screen
         name="doNotBuy"
         component={DoNotBuy}
