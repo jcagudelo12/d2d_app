@@ -11,8 +11,7 @@ import {
 import { Divider, Image, Input, Button } from "react-native-elements";
 import Modal from "../Modal";
 import CarouselImage from "../../components/CarouselImage";
-import { storeData } from "../../utils/actions";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import "../../utils/global";
 
 const widthScreen = Dimensions.get("window").width;
 
@@ -26,6 +25,7 @@ export default function ListProducts({ products, navigation, handleLoadMore }) {
 
   const addArticleToSale = async () => {
     setListArticles([...listArticles, modalBody]);
+    global.listArticles = [...global.listArticles, modalBody];
     setShowModal(false);
   };
 

@@ -5,14 +5,17 @@ import { useFocusEffect } from "@react-navigation/native";
 import firebase from "firebase/app";
 import Loading from "../../components/Loading";
 import { getProducts } from "../../utils/actions";
+import "../../utils/global";
 import { size } from "lodash";
 import ListProducts from "../../components/products/ListProducts";
 
-export default function Products({ navigation, sale, setSale }) {
+export default function Products({ navigation }) {
   const [user, setUser] = useState(null);
   const [startProduct, setStartProduct] = useState(null);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  console.log("listArticles desde global full", global.listArticles);
 
   const limitProducts = 6;
   useEffect(() => {
