@@ -33,7 +33,6 @@ export default function AddProductForm({ toastRef, setLoading, navigation }) {
       reference: formData.reference,
       description: formData.description,
       price: formData.price,
-      stock: formData.stock,
       images: responseUploadImages,
     };
 
@@ -78,17 +77,13 @@ export default function AddProductForm({ toastRef, setLoading, navigation }) {
       setErrorPrice("Debes ingresar el precio del producto.");
       isValid = false;
     }
-    if (isEmpty(formData.stock)) {
-      setErrorStock("Debes ingresar una cantidad inicial para el producto.");
-      isValid = false;
-    }
-    if (size(imagesSelected) === 0) {
-      toastRef.current.show(
-        "Debes de agregar al menos una imagen al producto.",
-        3000
-      );
-      isValid = false;
-    }
+    // if (size(imagesSelected) === 0) {
+    //   toastRef.current.show(
+    //     "Debes de agregar al menos una imagen al producto.",
+    //     3000
+    //   );
+    //   isValid = false;
+    // }
     return isValid;
   };
 
@@ -223,14 +218,6 @@ const FormAdd = ({
         onChange={(e) => onChange(e, "price")}
         errorMessage={errorPrice}
       />
-
-      <Input
-        placeholder="Stock inicial del producto"
-        keyboardType="phone-pad"
-        defaultValue={formData.stock}
-        onChange={(e) => onChange(e, "stock")}
-        errorMessage={errorStock}
-      />
     </View>
   );
 };
@@ -240,7 +227,7 @@ const defaultFormValues = () => {
     reference: "",
     description: "",
     price: "",
-    stock: "",
+    // stock: "",
   };
 };
 

@@ -76,10 +76,6 @@ export default function ListProducts({ products, handleLoadMore }) {
             <Text style={styles.textTitleModal}>Precio: </Text>
             {modalBody.price}
           </Text>
-          <Text>
-            <Text style={styles.textTitleModal}>Stock: </Text>
-            {modalBody.stock}
-          </Text>
           <Input
             placeholder="Ingresar cantidad"
             onChange={(e) => onChange(e, "quantity")}
@@ -149,9 +145,6 @@ const Product = ({ product, setShowModal, setModalBody }) => {
             <Text style={styles.productInformation}>
               <Text style={styles.textTitleModal}>Precio: </Text> {price}
             </Text>
-            <Text style={styles.productInformation}>
-              <Text style={styles.textTitleModal}>Stock: </Text> {stock}
-            </Text>
           </View>
         </View>
         <Divider style={styles.divider} />
@@ -164,6 +157,7 @@ const styles = StyleSheet.create({
   viewProduct: {
     flexDirection: "row",
     margin: 10,
+    marginRight: 100,
   },
   viewProductImage: {
     marginRight: 15,
