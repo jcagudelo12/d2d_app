@@ -1,11 +1,19 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-elements";
+import React from "react";
+import { StyleSheet, View } from "react-native";
 import ListArticles from "../../components/sale/ListArticles";
 import "../../utils/global";
 
 export default function Detail() {
-  return <ListArticles />;
+  return (
+    <View style={styles.viewBody}>
+      <ListArticles />
+    </View>
+  );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  viewBody: {
+    flex: 1,
+    backgroundColor: "#474747",
+  },
+});

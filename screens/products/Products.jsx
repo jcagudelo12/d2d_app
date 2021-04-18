@@ -22,6 +22,7 @@ export default function Products({ navigation }) {
       userInfo ? setUser(true) : setUser(false);
     });
   }, []);
+
   useFocusEffect(
     useCallback(async () => {
       setLoading(true);

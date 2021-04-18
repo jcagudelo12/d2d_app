@@ -15,7 +15,7 @@ import "../../utils/global";
 
 const widthScreen = Dimensions.get("window").width;
 
-export default function ListProducts({ products, navigation, handleLoadMore }) {
+export default function ListProducts({ products, handleLoadMore }) {
   const [showModal, setShowModal] = useState(false);
   const [wordToSearch, setWordToSearch] = useState("");
   const [activeSlide, setActiveSlide] = useState(0);

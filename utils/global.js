@@ -1,1 +1,2 @@
 global.listArticles = [];
+global.clientId = "";

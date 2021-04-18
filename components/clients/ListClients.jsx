@@ -10,6 +10,7 @@ import {
 import { Divider, Image, ListItem, Icon } from "react-native-elements";
 import { formatPhone } from "../../utils/helpers";
 import uuid from "random-uuid-v4";
+import "../../utils/global";
 
 import Modal from "../Modal";
 
@@ -67,6 +68,7 @@ const Client = ({
 
   const goOptionsClient = () => {
     setClientSelected(id);
+    global.clientId = id;
     setShowModal(true);
   };
 
@@ -97,7 +99,7 @@ const Client = ({
           key={uuid()}
           style={styles.menuItem}
           onPress={() => {
-            navigation.navigate("sales", { clientSelected });
+            navigation.navigate("sales");
             setShowModal(false);
           }}
         >
@@ -123,7 +125,7 @@ const Client = ({
           key={uuid()}
           style={styles.menuItem}
           onPress={() => {
-            navigation.navigate("sales", { clientSelected });
+            navigation.navigate("sales");
             setShowModal(false);
           }}
         >

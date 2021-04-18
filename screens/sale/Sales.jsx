@@ -7,7 +7,7 @@ import Order from "../sale/Order";
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function Sales({ navigation }) {
+export default function Sales() {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Productos" component={Products} />

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import firebase from "firebase/app";
-import { Avatar, Button, Rating } from "react-native-elements";
+import { Image, Icon, Button } from "react-native-elements";
 import { size, map } from "lodash";
 import { ActivityIndicator } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -16,41 +16,77 @@ export default function ListArticles() {
     }, [articles])
   );
   return (
-    <View>
-      {!articles && (
-        <Text style={styles.mustLoginTest}>
-          No se han agregado items al pedido.
-        </Text>
-      )}
-      {size(articles) > 0 &&
+    <View style={styles.principalView}>
+      {size(articles) > 0 ? (
         map(articles, (articleDocument) => (
           <Article articleDocument={articleDocument} />
-        ))}
+        ))
+      ) : (
+        <>
+          <Icon
+            type="material-community"
+            name="emoticon-sad-outline"
+            size={100}
+            color={"#fff"}
+          />
+          <Text style={styles.mustLoadArticles}>
+            Oops!! aún no has agregado ningún articulo.
+          </Text>
+        </>
+      )}
     </View>
   );
 }
 
+// const deleteArticle = () => {
+//     let index = global.listArticles.indexOf(3);
+//   global.listArticles.splice(index, 1);
+//   console.log(global.listArticles);
+// };
 const Article = ({ articleDocument }) => {
   const { reference, description, images, price, quantity } = articleDocument;
   return (
     <View style={styles.viewArticle}>
       <View style={styles.imageAvatar}>
-        <Avatar
-          renderPlaceholderContent={<ActivityIndicator color="#fff" />}
-          size="large"
-          rounded
-          containerStyle={styles.imageAvatarProduct}
-          source={
-            images
-              ? { uri: images[0] }
-              : require("../../assets/avatar-default.jpg")
-          }
+        <Image
+          resizeMode="cover"
+          PlaceholderContent={<ActivityIndicator color="#ffffff" />}
+          source={{ uri: images[0] }}
+          style={styles.imageProduct}
         />
       </View>
       <View style={styles.viewInfo}>
-        <Text style={styles.ArticleTitle}>{reference}</Text>
-        <Text style={styles.ArticleText}>{description}</Text>
+        <Text style={styles.articleText}>
+          <Text style={styles.articleTitle}>Referencia: </Text>
+          {reference}
+        </Text>
+        <Text style={styles.articleText}>
+          <Text style={styles.articleTitle}>Descripción: </Text>
+          {description}
+        </Text>
+        <Text style={styles.articleText}>
+          <Text style={styles.articleTitle}>Cantidad: </Text>
+          {quantity}
+        </Text>
+        <Text style={styles.articleText}>
+          <Text style={styles.articleTitle}>Valor unitario: </Text>
+          {price}
+        </Text>
+        <Text style={styles.articleText}>
+          <Text style={styles.articleTitle}>Total: </Text>
+          {quantity * price}
+        </Text>
       </View>
+      {/* <Button
+        buttonStyle={styles.btnDeleteArticle}
+        titleStyle={styles.btnTitleDeleteArticle}
+        // onPress={deleteArticle}
+        icon={{
+          type: "material-community",
+          name: "delete",
+          color: "#000",
+        }}
+      /> */}
     </View>
   );
 };
@@ -60,15 +96,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     padding: 10,
     paddingBottom: 20,
-    borderBottomColor: "#e3e3e3",
+    borderBottomColor: "#CCDB33",
     borderBottomWidth: 1,
   },
   imageAvatar: {
     marginRight: 15,
   },
   imageAvatarProduct: {
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
   },
   viewInfo: {
     flex: 1,
@@ -76,18 +112,30 @@ const styles = StyleSheet.create({
   },
   articleTitle: {
     fontWeight: "bold",
+    color: "white",
   },
   articleText: {
+    color: "white",
     paddingTop: 2,
-    color: "gray",
     marginBottom: 5,
   },
-  articleDate: {
-    marginTop: 5,
-    color: "gray",
-    fontSize: 12,
-    position: "absolute",
-    right: 0,
-    bottom: 0,
+  mustLoadArticles: {
+    fontSize: 30,
+    justifyContent: "center",
+    alignSelf: "center",
+    marginHorizontal: 20,
+    color: "#fff",
+  },
+  imageProduct: {
+    marginTop: 10,
+    width: 100,
+    height: 100,
+  },
+  btnDeleteArticle: {
+    backgroundColor: "#CCDB33",
+    textAlignVertical: "center",
+  },
+  btnTitleDeleteArticle: {
+    color: "#000",
   },
 });
