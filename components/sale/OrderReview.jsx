@@ -10,14 +10,15 @@ import {
   getCurrentUser,
 } from "../../utils/actions";
 import { getCurrentLocation } from "../../utils/helpers";
+import { size } from "lodash";
 
 export default function OrderReview({ navigation }) {
   const [listArticles, setListArticles] = useState([]);
   const [quantityProducts, setQuantityProducts] = useState(0);
   const [quantityUnities, setQuantityUnities] = useState(0);
-  const [subTotal, setSubTotal] = useState(0.0);
-  const [taxes, setTaxes] = useState(0.0);
-  const [totalValue, setTotalValue] = useState(0.0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [taxes, setTaxes] = useState();
+  const [totalValue, setTotalValue] = useState();
   const [clientId, setClientId] = useState();
   const [loading, setLoading] = useState(false);
   const [client, setClient] = useState();
@@ -34,20 +35,22 @@ export default function OrderReview({ navigation }) {
     setQuantityProducts(parseInt(listArticles.length));
   };
 
+  const calculateTaxes = async () => {
+    const taxes = parseFloat(subTotal) * 0.19;
+    setTaxes(taxes);
+  };
+
+  const calculateTotal = async () => {
+    const total = parseFloat(subTotal) + parseFloat(subTotal) * 0.19;
+    setTotalValue(total);
+  };
+
   const calculateSubtotal = () => {
     listArticles.map((article) => {
       const sub = parseInt(article.quantity) * parseFloat(article.price);
       setSubTotal(subTotal + sub);
     });
-    let taxes = parseFloat(subTotal) * 0.19;
-    setTaxes(taxes);
-    let total = parseFloat(subTotal) + parseFloat(taxes);
-    setTotalValue(total);
   };
-
-  const calculateTaxes = () => {};
-
-  const calculateTotal = () => {};
 
   const clear = () => {
     setListArticles([]);
@@ -68,17 +71,22 @@ export default function OrderReview({ navigation }) {
       setLoading(false);
     }, [clientId])
   );
+
+  useFocusEffect(
+    useCallback(async () => {
+      calculateTaxes();
+      calculateTotal();
+    }, [subTotal])
+  );
+
   useFocusEffect(
     useCallback(() => {
       clear();
       setListArticles(global.listArticles);
       setClientId(global.clientId);
-
       countUnities();
       countProducts();
       calculateSubtotal();
-      calculateTaxes();
-      calculateTotal();
     }, [listArticles])
   );
   const order = {
@@ -122,6 +130,7 @@ export default function OrderReview({ navigation }) {
     setLoading(false);
     navigation.navigate("clients");
   };
+
   return (
     <View style={styles.viewOrder}>
       <View style={styles.viewTexts}>
@@ -142,10 +151,10 @@ export default function OrderReview({ navigation }) {
           <Text style={styles.title}>SubTotal:</Text> {subTotal}
         </Text>
         <Text style={styles.description}>
-          <Text style={styles.title}>IVA:</Text> {subTotal && taxes}
+          <Text style={styles.title}>IVA:</Text> {taxes}
         </Text>
         <Text style={styles.description}>
-          <Text style={styles.title}>Total:</Text> {subTotal && totalValue}
+          <Text style={styles.title}>Total:</Text> {totalValue}
         </Text>
       </View>
       <Button
