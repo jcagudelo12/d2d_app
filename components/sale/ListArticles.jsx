@@ -41,7 +41,6 @@ export default function ListArticles() {
 // const deleteArticle = () => {
 //     let index = global.listArticles.indexOf(3);
 //   global.listArticles.splice(index, 1);
-//   console.log(global.listArticles);
 // };
 const Article = ({ articleDocument }) => {
   const { reference, description, images, price, quantity } = articleDocument;
