@@ -1,16 +1,16 @@
-import React, { useCallback, useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   StyleSheet,
   Text,
   View,
   FlatList,
   TouchableOpacity,
-  ActivityIndicator,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { Divider, Image, Input, Button } from "react-native-elements";
+import { Divider, Icon } from "react-native-elements";
 import Modal from "../Modal";
 import { getDocumentById } from "../../utils/actions";
+import { size } from "lodash";
 
 export default function ListOrders({ orders }) {
   const [showModal, setShowModal] = useState(false);
@@ -20,12 +20,6 @@ export default function ListOrders({ orders }) {
 
   return (
     <View>
-      {/* <Input
-        placeholder="   Buscar producto"
-        onChange={(e) => setWordToSearch(e.nativeEvent.text)}
-        style={styles.search}
-      /> */}
-
       <FlatList
         data={orders}
         keyExtractor={(item, index) => index.toString()}
@@ -40,38 +34,24 @@ export default function ListOrders({ orders }) {
       />
       <Modal isVisible={showModal} setVisible={setShowModal}>
         <View style={{ marginTop: 10 }}>
-          <Text>Hola</Text>
-          {/* <Text>
-            <Text style={styles.textTitleModal}>Referencia: </Text>
-            {modalBody.reference}
-          </Text>
-          <Text>
-            <Text style={styles.textTitleModal}>Descripción: </Text>
-            {modalBody.description}
-          </Text>
+          <Text>Detalle</Text>
+          {/* {details.map((info) => {
+            <>
+              <Text>
+                <Text>Referencia: </Text>
+                {info.reference}
+              </Text>
+              <Text>
+                <Text>Descripción: </Text>
+                {info.description}
+              </Text>
 
-          <Text>
-            <Text style={styles.textTitleModal}>Precio: </Text>
-            {modalBody.price}
-          </Text>
-          <Input
-            placeholder="Ingresar cantidad"
-            onChange={(e) => onChange(e, "quantity")}
-            keyboardType="number-pad"
-          /> */}
-          {/* <Button
-            buttonStyle={styles.btnAddArticle}
-            title="Agregar producto"
-            titleStyle={styles.btnTitleAddArticle}
-            onPress={() => {
-              addArticleToSale();
-            }}
-            icon={{
-              type: "material-community",
-              name: "plus-circle",
-              color: "#000",
-            }}
-          /> */}
+              <Text>
+                <Text>Precio: </Text>
+                {info.price}
+              </Text>
+            </>;
+          })} */}
         </View>
       </Modal>
     </View>
@@ -82,6 +62,7 @@ const Order = ({ order, setShowModal, setModalBody }) => {
   const {
     id,
     client,
+    // clientInformation,
     createAt,
     createdBy,
     details,
@@ -95,11 +76,7 @@ const Order = ({ order, setShowModal, setModalBody }) => {
     const modalBody = () => {
       const body = {
         id,
-        client,
         details,
-        subTotalValue,
-        tax,
-        totalOrder,
       };
       return body;
     };
@@ -113,8 +90,16 @@ const Order = ({ order, setShowModal, setModalBody }) => {
     <>
       <TouchableOpacity onPress={onPress}>
         <View style={styles.viewOrder}>
+          <View tyle={styles.viewIconOrders}>
+            <Icon
+              type="material-community"
+              name="view-list-outline"
+              size={30}
+              color={"#CCDB33"}
+            />
+          </View>
           <View style={styles.viewOrderInformation}>
-            <Text style={styles.orderTitle}>{client}</Text>
+            <Text style={styles.productInformation}>Nombre del Cliente</Text>
             <Text style={styles.productInformation}>
               <Text style={styles.textTitleModal}>SubTotal: </Text>{" "}
               {subTotalValue}
@@ -126,18 +111,6 @@ const Order = ({ order, setShowModal, setModalBody }) => {
               <Text style={styles.textTitleModal}>Total: </Text> {totalOrder}
             </Text>
           </View>
-          {/* <Button
-            buttonStyle={styles.btnAddArticle}
-            titleStyle={styles.btnTitleAddArticle}
-            // onPress={() => {
-            //   addArticleToSale();
-            // }}
-            icon={{
-              type: "material-community",
-              name: "view-list-outline",
-              color: "#000",
-            }}
-          /> */}
         </View>
         <Divider style={styles.divider} />
       </TouchableOpacity>
@@ -147,7 +120,7 @@ const Order = ({ order, setShowModal, setModalBody }) => {
 
 const styles = StyleSheet.create({
   viewProduct: {
-    flexDirection: "row",
+    // flexDirection: "row",
     margin: 10,
     marginRight: 100,
   },
@@ -195,5 +168,12 @@ const styles = StyleSheet.create({
   },
   btnTitleAddArticle: {
     color: "#000",
+  },
+  viewClientImage: {
+    marginRight: 15,
+  },
+  viewOrderInformation: {
+    width: "100%",
+    paddingRight: 4,
   },
 });

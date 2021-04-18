@@ -4,13 +4,18 @@ import { Icon } from "react-native-elements";
 import { useFocusEffect } from "@react-navigation/native";
 import firebase from "firebase/app";
 import Loading from "../../components/Loading";
-import { getCurrentUser, getOrdersSended } from "../../utils/actions";
+import {
+  getCurrentUser,
+  getOrdersSended,
+  getDocumentById,
+} from "../../utils/actions";
 import { size } from "lodash";
 import ListOrders from "../../components/orders/ListOrders";
 
 export default function OrdersSended({ navigation }) {
   const [user, setUser] = useState(null);
   const [orders, setOrders] = useState([]);
+  const [newOrders, setNewOrders] = useState([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -18,22 +23,6 @@ export default function OrdersSended({ navigation }) {
       userInfo ? setUser(true) : setUser(false);
     });
   }, []);
-
-  // useFocusEffect(
-  //   useCallback(async () => {
-  //     setLoading(true);
-  //     await Promise.all(
-  //       orders.map(async (order) => {
-  //         const response = await getDocumentById("clients", order.client);
-  //         order.client = response.document;
-  //         setOrders(response.orders);
-  //       })
-  //     );
-  //     setLoading(false);
-  //   }, [])
-  // );
-
-  console.log(orders[0]);
 
   useFocusEffect(
     useCallback(async () => {
@@ -45,6 +34,22 @@ export default function OrdersSended({ navigation }) {
       setLoading(false);
     }, [])
   );
+
+  // useFocusEffect(
+  //   useCallback(async () => {
+  //     setLoading(true);
+  //     await Promise.all(
+  //       orders.map(async (order, index) => {
+  //         console.log(order.client);
+  //         const response = await getDocumentById("clients", order.client);
+  //         order["clientInformation"] = response.document;
+  //         setNewOrders([...newOrders, order]);
+  //         console.log("index", index);
+  //       })
+  //     );
+  //     setLoading(false);
+  //   }, [])
+  // );
 
   if (user === null) {
     return <Loading isVisible={true} text="Cargando..." />;
