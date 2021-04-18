@@ -76,12 +76,8 @@ export default function OrderReview() {
     }, [listArticles])
   );
 
-  console.log("clientID: ", clientId);
-  console.log("client: ", client);
-
   return (
     <View style={styles.viewOrder}>
-      {/* <Text>Cliente: {listArticles[0].reference}</Text> */}
       <View style={styles.viewTexts}>
         <Text style={styles.description}>
           <Text style={styles.title}>Cliente:</Text> {client && client.name}
