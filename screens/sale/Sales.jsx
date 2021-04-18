@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import Products from "../../screens/products/Products";
 import Detail from "../sale/Detail";
@@ -17,7 +16,3 @@ export default function Sales({ navigation }) {
     </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {},
-});

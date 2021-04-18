@@ -1,16 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import OrdersSended from "./OrdersSended";
+import Score from "../tramsmission/Score";
+import MadeToday from "../tramsmission/MadeToday";
+
+const Tab = createMaterialTopTabNavigator();
 
 export default function Transmissions() {
   return (
-    <View style={styles.container}>
-      <Text>Transmissions...</Text>
-    </View>
+    <Tab.Navigator>
+      <Tab.Screen name="Realizados" component={OrdersSended} />
+      <Tab.Screen name="Score" component={Score} />
+      <Tab.Screen name="Resumen Dia" component={MadeToday} />
+    </Tab.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginHorizontal: 40,
-  },
-});
