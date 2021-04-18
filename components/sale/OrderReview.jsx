@@ -1,12 +1,17 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import "../../utils/global";
 import Loading from "../../components/Loading";
-import { getDocumentById } from "../../utils/actions";
+import {
+  getDocumentById,
+  addDocumentWithoutId,
+  getCurrentUser,
+} from "../../utils/actions";
+import { getCurrentLocation } from "../../utils/helpers";
 
-export default function OrderReview() {
+export default function OrderReview({ navigation }) {
   const [listArticles, setListArticles] = useState([]);
   const [quantityProducts, setQuantityProducts] = useState(0);
   const [quantityUnities, setQuantityUnities] = useState(0);
@@ -16,6 +21,7 @@ export default function OrderReview() {
   const [clientId, setClientId] = useState();
   const [loading, setLoading] = useState(false);
   const [client, setClient] = useState();
+  const [region, setRegion] = useState(null);
 
   const countUnities = () => {
     listArticles.map((article) => {
@@ -75,7 +81,47 @@ export default function OrderReview() {
       calculateTotal();
     }, [listArticles])
   );
+  const order = {
+    createAt: "",
+    createdBy: "",
+    client: "",
+    location: [],
+    details: [],
+    subTotalValue: "",
+    tax: "",
+    totalOrder: "",
+  };
+  const sendOrder = async () => {
+    setLoading(true);
+    const response = await getCurrentLocation();
+    if (response.status) {
+      order.location = response.location;
+    }
+    order.createAt = new Date();
+    order.createdBy = getCurrentUser().uid;
+    order.client = clientId;
+    order.details = listArticles;
+    order.subTotalValue = subTotal;
+    order.tax = taxes;
+    order.totalOrder = totalValue;
 
+    const responseAddDocument = await addDocumentWithoutId("orders", order);
+    setLoading(false);
+    if (!responseAddDocument.statusResponse) {
+      toastRef.current.show(
+        "Error al grabar el cliente, por favor intenta más tarde.",
+        3000
+      );
+      return;
+    }
+    global.listArticles = [];
+    global.clientId = "";
+    clear();
+    setClientId();
+    setClient();
+    setLoading(false);
+    navigation.navigate("clients");
+  };
   return (
     <View style={styles.viewOrder}>
       <View style={styles.viewTexts}>
@@ -106,7 +152,7 @@ export default function OrderReview() {
         title="Enviar"
         buttonStyle={styles.btnSendArticle}
         titleStyle={styles.btnTitleSendArticle}
-        // onPress={SendArticle}
+        onPress={sendOrder}
       />
       <Loading isVisible={loading} />
     </View>

@@ -2,10 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import OrderReview from "../../components/sale/OrderReview";
 
-export default function Order() {
+export default function Order({ navigation }) {
   return (
     <View style={styles.viewBody}>
-      <OrderReview />
+      <OrderReview navigation={navigation} />
     </View>
   );
 }
