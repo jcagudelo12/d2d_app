@@ -9,7 +9,6 @@ import {
 import { Divider, Icon } from "react-native-elements";
 
 export default function ListDoNotBuy({ reasons, navigation }) {
-  //   const { clientSelected } = route.params;
   const [reasonSelected, setReasonSelected] = useState();
   return (
     <View>
