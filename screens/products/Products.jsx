@@ -36,7 +36,6 @@ export default function Products({ navigation }) {
   );
 
   const handleLoadMore = async () => {
-    console.log("startProduct: ", startProduct.data());
     if (!startProduct) {
       return;
     }
@@ -50,7 +49,6 @@ export default function Products({ navigation }) {
     setLoading(false);
   };
 
-  console.log("tamaño array de productos", products.length);
   if (user === null) {
     return <Loading isVisible={true} text="Cargando..." />;
   }

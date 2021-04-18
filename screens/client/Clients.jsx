@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { Icon } from "react-native-elements";
 import { useFocusEffect } from "@react-navigation/native";
 import firebase from "firebase/app";
+import moment from "moment";
 import Loading from "../../components/Loading";
 import {
   getCurrentUser,
@@ -11,6 +12,8 @@ import {
 } from "../../utils/actions";
 import { size } from "lodash";
 import ListClients from "../../components/clients/ListClients";
+
+moment.locale("es");
 
 export default function Clients({ navigation }) {
   const [user, setUser] = useState(null);

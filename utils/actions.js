@@ -1,9 +1,11 @@
 import { firebaseApp } from "./firebase";
 import firebase from "firebase";
 import "firebase/firestore";
+import moment from "moment";
 import { fileToBlob } from "./helpers";
 
 const db = firebase.firestore(firebaseApp);
+moment.locale("es");
 
 export const isUserLogged = () => {
   let islogged = false;
@@ -277,21 +279,19 @@ export const getOrdersSended = async (sellerId) => {
   const result = {
     statusResponse: true,
     error: null,
-    products: [],
-    startProduct: null,
+    orders: [],
   };
   try {
     const response = await db
-      .collection("products")
-      .where("createBy", "==", sellerId)
+      .collection("orders")
+      .where("createdBy", "==", sellerId)
+      // .where("createAt", ">=", moment(new Date()).format("YYYY/MM/DD"))
       .get();
-    if (response.docs.length > 0) {
-      result.startProduct = response.docs[response.docs.length - 1];
-    }
+
     response.forEach((doc) => {
-      const product = doc.data();
-      product.id = doc.id;
-      result.products.push(product);
+      const order = doc.data();
+      order.id = doc.id;
+      result.orders.push(order);
     });
   } catch (error) {
     result.statusResponse = false;
