@@ -4,7 +4,7 @@ import { Icon } from "react-native-elements";
 import { useFocusEffect } from "@react-navigation/native";
 import firebase from "firebase/app";
 import Loading from "../../components/Loading";
-import { getProducts } from "../../utils/actions";
+import { getProducts, getMoreProducts } from "../../utils/actions";
 import "../../utils/global";
 import { size } from "lodash";
 import ListProducts from "../../components/products/ListProducts";
@@ -35,6 +35,22 @@ export default function Products({ navigation }) {
     }, [])
   );
 
+  const handleLoadMore = async () => {
+    console.log("startProduct: ", startProduct.data());
+    if (!startProduct) {
+      return;
+    }
+
+    setLoading(true);
+    const response = await getMoreProducts(limitProducts, startProduct);
+    if (response.statusResponse) {
+      setStartProduct(response.startProduct);
+      setProducts([...products, ...response.products]);
+    }
+    setLoading(false);
+  };
+
+  console.log("tamaño array de productos", products.length);
   if (user === null) {
     return <Loading isVisible={true} text="Cargando..." />;
   }
@@ -45,7 +61,7 @@ export default function Products({ navigation }) {
         <ListProducts
           products={products}
           navigation={navigation}
-          //handleLoadMore={handleLoadMore}
+          handleLoadMore={handleLoadMore}
         />
       ) : (
         <View style={styles.notFoundView}>

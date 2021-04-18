@@ -18,7 +18,6 @@ export default function AddProductForm({ toastRef, setLoading, navigation }) {
   const [errorReference, setErrorReference] = useState(null);
   const [errorDescription, setErrorDescription] = useState(null);
   const [errorPrice, setErrorPrice] = useState(null);
-  const [errorStock, setErrorStock] = useState(null);
   const [imagesSelected, setImagesSelected] = useState([]);
 
   const addProduct = async () => {
@@ -91,7 +90,6 @@ export default function AddProductForm({ toastRef, setLoading, navigation }) {
     setErrorReference(null);
     setErrorDescription(null);
     setErrorPrice(null);
-    setErrorStock(null);
   };
 
   return (
@@ -103,7 +101,6 @@ export default function AddProductForm({ toastRef, setLoading, navigation }) {
         errorReference={errorReference}
         errorDescription={errorDescription}
         errorPrice={errorPrice}
-        errorStock={errorStock}
       />
       <UploadImage
         toastRef={toastRef}
@@ -193,7 +190,6 @@ const FormAdd = ({
   errorReference,
   errorDescription,
   errorPrice,
-  errorStock,
 }) => {
   const onChange = (e, type) => {
     setFormData({ ...formData, [type]: e.nativeEvent.text });
@@ -227,7 +223,6 @@ const defaultFormValues = () => {
     reference: "",
     description: "",
     price: "",
-    // stock: "",
   };
 };
 

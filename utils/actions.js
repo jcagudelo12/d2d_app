@@ -229,9 +229,34 @@ export const getProducts = async (limitProducts) => {
     startProduct: null,
   };
   try {
+    const response = await db.collection("products").limit(limitProducts).get();
+    if (response.docs.length > 0) {
+      result.startProduct = response.docs[response.docs.length - 1];
+    }
+    response.forEach((doc) => {
+      const product = doc.data();
+      product.id = doc.id;
+      result.products.push(product);
+    });
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+  return result;
+};
+
+export const getMoreProducts = async (limitProducts, startProduct) => {
+  console.log("name product", startProduct.data().name);
+  const result = {
+    statusResponse: true,
+    error: null,
+    products: [],
+    startProduct: null,
+  };
+  try {
     const response = await db
       .collection("products")
-      .orderBy("reference")
+      .startAfter(startProduct.data().reference)
       .limit(limitProducts)
       .get();
     if (response.docs.length > 0) {
