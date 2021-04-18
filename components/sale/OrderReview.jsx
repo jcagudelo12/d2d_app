@@ -60,31 +60,35 @@ export default function OrderReview() {
         setClient(response.document);
       }
       setLoading(false);
-    }, [])
+    }, [clientId])
   );
-
   useFocusEffect(
     useCallback(() => {
       clear();
       setListArticles(global.listArticles);
       setClientId(global.clientId);
+
       countUnities();
       countProducts();
       calculateSubtotal();
       calculateTaxes();
       calculateTotal();
-    }, [global.listArticles])
+    }, [listArticles])
   );
+
+  console.log("clientID: ", clientId);
+  console.log("client: ", client);
 
   return (
     <View style={styles.viewOrder}>
       {/* <Text>Cliente: {listArticles[0].reference}</Text> */}
       <View style={styles.viewTexts}>
         <Text style={styles.description}>
-          <Text style={styles.title}>Cliente:</Text> {client.name}
+          <Text style={styles.title}>Cliente:</Text> {client && client.name}
         </Text>
         <Text style={styles.description}>
-          <Text style={styles.title}>Dirección:</Text> {client.address}
+          <Text style={styles.title}>Dirección:</Text>{" "}
+          {client && client.address}
         </Text>
         <Text style={styles.description}>
           <Text style={styles.title}>Productos:</Text> {quantityProducts}
@@ -121,12 +125,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 30,
   },
   title: {
-    fontSize: 30,
+    fontSize: 25,
     fontWeight: "bold",
     color: "#fff",
   },
   description: {
-    fontSize: 30,
+    fontSize: 25,
     color: "#fff",
   },
   btnSendArticle: {
