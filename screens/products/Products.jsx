@@ -39,7 +39,6 @@ export default function Products({ navigation }) {
     if (!startProduct) {
       return;
     }
-
     setLoading(true);
     const response = await getMoreProducts(limitProducts, startProduct);
     if (response.statusResponse) {

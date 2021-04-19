@@ -44,7 +44,7 @@ export default function ListProducts({ products, handleLoadMore }) {
       <FlatList
         data={products}
         keyExtractor={(item, index) => index.toString()}
-        onEndReachedThreshold={0.5}
+        onEndReachedThreshold={0.2}
         onEndReached={handleLoadMore}
         renderItem={(product) => (
           <Product
