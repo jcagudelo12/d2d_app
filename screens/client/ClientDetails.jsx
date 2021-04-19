@@ -4,7 +4,6 @@ import { Dimensions, StyleSheet, Text, ScrollView, View } from "react-native";
 import CarouselImage from "../../components/CarouselImage";
 import Loading from "../../components/Loading";
 import MapView from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
 import { getDocumentById } from "../../utils/actions";
 import { formatPhone, getCurrentLocation } from "../../utils/helpers";
 import { _ScrollView } from "react-native";
@@ -16,7 +15,6 @@ export default function ClientDetails({ navigation, route }) {
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newRegion, setNewRegion] = useState(null);
-  const GOOGLE_MAPS_APIKEY = "AIzaSyDMOnvuH5Bgwgi5N3LS2dX1ZDAQnb0OpbM";
 
   const { clientSelected } = route.params;
   useFocusEffect(
@@ -38,7 +36,7 @@ export default function ClientDetails({ navigation, route }) {
         setNewRegion(response.location);
       }
     })();
-  }, []);
+  }, [clientInfo]);
 
   const {
     nit,
@@ -94,14 +92,6 @@ export default function ClientDetails({ navigation, route }) {
                     longitude: newRegion.longitude,
                   }}
                   title={"Mi ubicación actual"}
-                />
-                <MapViewDirections
-                  origin={newRegion}
-                  destination={location}
-                  strokeWidth={5}
-                  strokeColor="hotpink"
-                  optimizeWaypoints={true}
-                  apikey={GOOGLE_MAPS_APIKEY}
                 />
               </>
             )}
