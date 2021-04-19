@@ -7,6 +7,11 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Divider, Icon } from "react-native-elements";
+import moment from "moment";
+import { addDocumentWithoutId } from "../../utils/actions";
+import "../../utils/global";
+
+moment.locale("es");
 
 export default function ListDoNotBuy({ reasons, navigation }) {
   const [reasonSelected, setReasonSelected] = useState();
@@ -31,10 +36,27 @@ export default function ListDoNotBuy({ reasons, navigation }) {
 
 const Reason = ({ reason, navigation, reasonSelected, setReasonSelected }) => {
   const { id, description } = reason.item;
-  const goReason = () => {
-    //navigation.navigate("restaurant", { id, name });
-  };
+  const currentDate = moment(new Date()).unix();
+  const goReason = async () => {
+    const notVisit = {
+      id,
+      description,
+      date: currentDate,
+      clientId: global.clientId,
+    };
 
+    const responseAddDocument = await addDocumentWithoutId(
+      "notVisit",
+      notVisit
+    );
+    if (!responseAddDocument.statusResponse) {
+      // toastRef.current.show(
+      //   "Error al grabar el cliente, por favor intenta más tarde.",
+      //   3000
+      // );
+      return;
+    }
+  };
   return (
     <TouchableOpacity onPress={goReason}>
       <View style={styles.viewReason}>

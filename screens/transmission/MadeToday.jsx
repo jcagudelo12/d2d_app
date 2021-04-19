@@ -1,8 +1,53 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { getCurrentUser } from "../../utils/actions";
+import { useFocusEffect } from "@react-navigation/native";
+import {
+  getCurrentUser,
+  getNotVisitSended,
+  getOrdersSended,
+} from "../../utils/actions";
+import { size } from "lodash";
+import Loading from "../../components/Loading";
 
 export default function MadeToday() {
+  const [loading, setLoading] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [quantityOrders, setQuantityOrders] = useState(0);
+  const [quantityNotVisit, setQuantityNotVisit] = useState(0);
+  const [total, setTotal] = useState(0);
+
+  const totalValue = async () => {
+    orders.map((order) => {
+      setTotal(parseFloat(total) + parseFloat(order.totalOrder));
+    });
+  };
+
+  useFocusEffect(
+    useCallback(async () => {
+      setLoading(true);
+      const responseOne = await getNotVisitSended(getCurrentUser().uid);
+      if (responseOne.statusResponse) {
+        setQuantityNotVisit(responseOne.notVisits.length);
+      }
+
+      setLoading(false);
+    }, [])
+  );
+
+  useFocusEffect(
+    useCallback(async () => {
+      setLoading(true);
+
+      const response = await getOrdersSended(getCurrentUser().uid);
+      if (response.statusResponse) {
+        setOrders(response.orders);
+        setQuantityOrders(orders.length);
+        totalValue();
+      }
+
+      setLoading(false);
+    }, [])
+  );
   return (
     <View style={styles.viewBody}>
       <View style={styles.viewHeader}>
@@ -10,12 +55,15 @@ export default function MadeToday() {
       </View>
       <View style={styles.viewDescription}>
         <Text style={styles.name}>{getCurrentUser().displayName}</Text>
-        <Text style={styles.description}>Pedidos: {}</Text>
-        <Text style={styles.description}>Valor de los pedidos: {}</Text>
+        <Text style={styles.description}>
+          Pedidos: {quantityOrders && quantityOrders}
+        </Text>
+        <Text style={styles.description}>Valor de los pedidos: {total}</Text>
         <Text style={styles.description}>Recaudos: {}</Text>
         <Text style={styles.description}>Valor de los recaudos: {}</Text>
-        <Text style={styles.description}>No visitas: {}</Text>
+        <Text style={styles.description}>No visitas: {quantityNotVisit}</Text>
       </View>
+      <Loading isVisible={loading} text="Cargando datos..." />
     </View>
   );
 }

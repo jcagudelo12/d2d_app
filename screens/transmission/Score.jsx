@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import DatePicker from "react-native-datepicker";
 import moment from "moment";
@@ -8,7 +8,6 @@ moment.locale("es");
 
 export default function Score() {
   const date = moment(new Date()).format("YYYY/MM/DD");
-  console.log(date);
   return (
     <View style={styles.viewDates}>
       <Text style={styles.principalTitle}>Pedidos</Text>

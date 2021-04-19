@@ -276,6 +276,8 @@ export const getMoreProducts = async (limitProducts, startProduct) => {
 };
 
 export const getOrdersSended = async (sellerId) => {
+  const initialDay = moment().format("YYYY/MM/DD");
+
   const result = {
     statusResponse: true,
     error: null,
@@ -284,14 +286,39 @@ export const getOrdersSended = async (sellerId) => {
   try {
     const response = await db
       .collection("orders")
-      .where("createdBy", "==", sellerId)
-      // .where("createAt", ">=", moment(new Date()).format("YYYY/MM/DD"))
+      .where("createAt", ">=", moment(initialDay).unix())
       .get();
 
     response.forEach((doc) => {
       const order = doc.data();
       order.id = doc.id;
       result.orders.push(order);
+    });
+  } catch (error) {
+    result.statusResponse = false;
+    result.error = error;
+  }
+  return result;
+};
+
+export const getNotVisitSended = async (sellerId) => {
+  const initialDay = moment().format("YYYY/MM/DD");
+
+  const result = {
+    statusResponse: true,
+    error: null,
+    notVisits: [],
+  };
+  try {
+    const response = await db
+      .collection("notVisit")
+      .where("date", ">=", moment(initialDay).unix())
+      .get();
+
+    response.forEach((doc) => {
+      const notVisit = doc.data();
+      notVisit.id = doc.id;
+      result.notVisits.push(notVisit);
     });
   } catch (error) {
     result.statusResponse = false;

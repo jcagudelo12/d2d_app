@@ -68,7 +68,7 @@ export default function Products({ navigation }) {
           </Text>
         </View>
       )}
-      {user && (
+      {/* {user && (
         <Icon
           type="material-community"
           name="account-plus"
@@ -78,7 +78,7 @@ export default function Products({ navigation }) {
           containerStyle={styles.btnContainer}
           onPress={() => navigation.navigate("add-product")}
         />
-      )}
+      )} */}
       <Loading isVisible={loading} text="Cargando productos..." />
     </View>
   );

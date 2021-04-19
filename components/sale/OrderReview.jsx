@@ -2,6 +2,7 @@ import React, { useCallback, useState, useEffect } from "react";
 import { useFocusEffect } from "@react-navigation/native";
 import { StyleSheet, Text, View } from "react-native";
 import { Button } from "react-native-elements";
+import moment from "moment";
 import "../../utils/global";
 import Loading from "../../components/Loading";
 import {
@@ -11,6 +12,8 @@ import {
 } from "../../utils/actions";
 import { getCurrentLocation } from "../../utils/helpers";
 import { size } from "lodash";
+
+moment.locale("es");
 
 export default function OrderReview({ navigation }) {
   const [listArticles, setListArticles] = useState([]);
@@ -101,11 +104,12 @@ export default function OrderReview({ navigation }) {
   };
   const sendOrder = async () => {
     setLoading(true);
+    const date = moment(new Date()).unix();
     const response = await getCurrentLocation();
     if (response.status) {
       order.location = response.location;
     }
-    order.createAt = new Date();
+    order.createAt = date;
     order.createdBy = getCurrentUser().uid;
     order.client = clientId;
     order.details = listArticles;
