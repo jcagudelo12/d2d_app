@@ -1,6 +1,6 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
-import Transmissions from "../screens/tramsmission/Transmissions";
+import Transmissions from "../screens/transmission/Transmissions";
 
 const Stack = createStackNavigator();
 
