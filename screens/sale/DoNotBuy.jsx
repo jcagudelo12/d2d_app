@@ -21,7 +21,7 @@ export default function DoNotBuy({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
+    useCallback(() => {
       async function getData() {
         setLoading(true);
         const response = await getReasonsDoNotBuy(getCurrentUser().uid);

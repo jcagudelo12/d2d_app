@@ -328,6 +328,5 @@ export const getNotVisitSended = async (sellerId) => {
     result.statusResponse = false;
     result.error = error;
   }
-  console.log("result", result);
   return result;
 };

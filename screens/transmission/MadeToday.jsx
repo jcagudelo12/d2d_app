@@ -23,7 +23,7 @@ export default function MadeToday() {
   };
 
   useFocusEffect(
-    useCallback(async () => {
+    useCallback(() => {
       async function getData() {
         setLoading(true);
         const responseOne = await getNotVisitSended(getCurrentUser().uid);
@@ -38,7 +38,7 @@ export default function MadeToday() {
   );
 
   useFocusEffect(
-    useCallback(async () => {
+    useCallback(() => {
       async function getData() {
         setLoading(true);
 

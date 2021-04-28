@@ -29,8 +29,7 @@ export default function ListProducts({ products, handleLoadMore }) {
   const [quantityError, setQuantityError] = useState(null);
 
   const validForm = () => {
-    console.log(modalBody.quantity);
-    const isValid = true;
+    let isValid = true;
     if (modalBody.quantity === undefined) {
       setQuantityError("Debes ingresar una cantidad.");
       isValid = false;

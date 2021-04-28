@@ -24,7 +24,7 @@ export default function Products({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
+    useCallback(() => {
       async function getData() {
         setLoading(true);
         const response = await getProducts(limitProducts);

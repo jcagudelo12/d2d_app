@@ -25,7 +25,7 @@ export default function OrdersSended({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
+    useCallback(() => {
       async function getData() {
         setLoading(true);
         const response = await getOrdersSended(getCurrentUser().uid);
