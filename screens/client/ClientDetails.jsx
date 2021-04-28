@@ -102,7 +102,7 @@ export default function ClientDetails({ navigation, route }) {
                   origin={newRegion}
                   destination={location}
                   strokeWidth={5}
-                  strokeColor="#CCDB33"
+                  strokeColor="#474747"
                   optimizeWaypoints={true}
                   apikey={GOOGLE_MAPS_APIKEY}
                 />
