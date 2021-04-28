@@ -45,7 +45,6 @@ export default function ListOrders({ orders }) {
                 <Text>Descripción: </Text>
                 {info.description}
               </Text>
-
               <Text>
                 <Text>Precio: </Text>
                 {info.price}

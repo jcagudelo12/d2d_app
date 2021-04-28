@@ -13,6 +13,7 @@ import Modal from "../Modal";
 import CarouselImage from "../../components/CarouselImage";
 import "../../utils/global";
 import Toast from "react-native-easy-toast";
+import { isEmpty } from "lodash";
 
 const widthScreen = Dimensions.get("window").width;
 
@@ -25,8 +26,21 @@ export default function ListProducts({ products, handleLoadMore }) {
   const [modalBody, setModalBody] = useState([]);
   const [listArticles, setListArticles] = useState([]);
   const widthImages = (widthScreen * 85) / 100;
+  const [quantityError, setQuantityError] = useState(null);
 
+  const validForm = () => {
+    console.log(modalBody.quantity);
+    const isValid = true;
+    if (modalBody.quantity === undefined) {
+      setQuantityError("Debes ingresar una cantidad.");
+      isValid = false;
+    }
+    return isValid;
+  };
   const addArticleToSale = async () => {
+    if (!validForm()) {
+      return;
+    }
     setListArticles([...listArticles, modalBody]);
     global.listArticles = [...global.listArticles, modalBody];
     setShowModal(false);
@@ -83,6 +97,7 @@ export default function ListProducts({ products, handleLoadMore }) {
             placeholder="Ingresar cantidad"
             onChange={(e) => onChange(e, "quantity")}
             keyboardType="number-pad"
+            errorMessage={quantityError}
           />
           <Button
             buttonStyle={styles.btnAddArticle}

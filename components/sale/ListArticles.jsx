@@ -22,7 +22,10 @@ export default function ListArticles() {
     <View style={styles.principalView}>
       {size(articles) > 0 ? (
         map(articles, (articleDocument) => (
-          <Article articleDocument={articleDocument} />
+          <Article
+            articleDocument={articleDocument}
+            key={articleDocument.reference}
+          />
         ))
       ) : (
         <>
