@@ -104,6 +104,11 @@ export default function ClientDetails({ navigation, route }) {
                   strokeWidth={5}
                   strokeColor="#474747"
                   optimizeWaypoints={true}
+                  language="es"
+                  timePrecision="now"
+                  mode="DRIVING"
+                  resetOnChange={true}
+                  optimizeWaypoints={true}
                   apikey={GOOGLE_MAPS_APIKEY}
                 />
               </>
