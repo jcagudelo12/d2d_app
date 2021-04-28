@@ -22,12 +22,15 @@ export default function DoNotBuy({ navigation }) {
 
   useFocusEffect(
     useCallback(async () => {
-      setLoading(true);
-      const response = await getReasonsDoNotBuy(getCurrentUser().uid);
-      if (response.statusResponse) {
-        setReasons(response.reasons);
+      async function getData() {
+        setLoading(true);
+        const response = await getReasonsDoNotBuy(getCurrentUser().uid);
+        if (response.statusResponse) {
+          setReasons(response.reasons);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+      getData();
     }, [])
   );
 

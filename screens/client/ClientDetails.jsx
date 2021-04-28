@@ -21,13 +21,16 @@ export default function ClientDetails({ navigation, route }) {
   const { clientSelected } = route.params;
   useFocusEffect(
     useCallback(async () => {
-      setLoading(true);
-      const response = await getDocumentById("clients", clientSelected);
-      if (response.statusResponse) {
-        setClientInfo(response.document);
-      }
+      async function getData() {
+        setLoading(true);
+        const response = await getDocumentById("clients", clientSelected);
+        if (response.statusResponse) {
+          setClientInfo(response.document);
+        }
 
-      setLoading(false);
+        setLoading(false);
+      }
+      getData();
     }, [])
   );
 

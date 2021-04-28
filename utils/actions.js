@@ -248,6 +248,7 @@ export const getProducts = async (limitProducts) => {
 };
 
 export const getMoreProducts = async (limitProducts, startProduct) => {
+  console.log(startProduct.data().reference);
   const result = {
     statusResponse: true,
     error: null,
@@ -257,9 +258,11 @@ export const getMoreProducts = async (limitProducts, startProduct) => {
   try {
     const response = await db
       .collection("products")
+      .orderBy("reference", "asc")
       .startAfter(startProduct.data().reference)
       .limit(limitProducts)
       .get();
+
     if (response.docs.length > 0) {
       result.startProduct = response.docs[response.docs.length - 1];
     }
@@ -272,6 +275,7 @@ export const getMoreProducts = async (limitProducts, startProduct) => {
     result.statusResponse = false;
     result.error = error;
   }
+  console.log("result", result);
   return result;
 };
 

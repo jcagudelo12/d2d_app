@@ -12,7 +12,10 @@ export default function ListArticles() {
 
   useFocusEffect(
     useCallback(() => {
-      setArticles(global.listArticles);
+      async function getData() {
+        setArticles(global.listArticles);
+      }
+      getData();
     }, [articles])
   );
   return (
