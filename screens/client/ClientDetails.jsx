@@ -16,7 +16,7 @@ export default function ClientDetails({ navigation, route }) {
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newRegion, setNewRegion] = useState(null);
-  const GOOGLE_MAPS_APIKEY = "AIzaSyDMOnvuH5Bgwgi5N3LS2dX1ZDAQnb0OpbM";
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAv0JUUZFp9ymN4FEeI98lYO7LewPclJpU";
 
   const { clientSelected } = route.params;
   useFocusEffect(
@@ -102,7 +102,7 @@ export default function ClientDetails({ navigation, route }) {
                   origin={newRegion}
                   destination={location}
                   strokeWidth={5}
-                  strokeColor="hotpink"
+                  strokeColor="#CCDB33"
                   optimizeWaypoints={true}
                   apikey={GOOGLE_MAPS_APIKEY}
                 />
