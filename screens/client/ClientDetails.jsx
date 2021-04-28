@@ -64,7 +64,7 @@ export default function ClientDetails({ navigation, route }) {
   };
   return (
     <ScrollView style={styles.viewBody}>
-      <Loading isVisible={loading} />
+      <Loading isVisible={loading} text="Cargando información..." />
       <CarouselImage
         images={images}
         height={300}
@@ -109,6 +109,7 @@ export default function ClientDetails({ navigation, route }) {
                   mode="DRIVING"
                   resetOnChange={true}
                   optimizeWaypoints={true}
+                  precision="high"
                   apikey={GOOGLE_MAPS_APIKEY}
                 />
               </>
