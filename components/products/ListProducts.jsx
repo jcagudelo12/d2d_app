@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,10 +12,13 @@ import { Divider, Image, Input, Button } from "react-native-elements";
 import Modal from "../Modal";
 import CarouselImage from "../../components/CarouselImage";
 import "../../utils/global";
+import Toast from "react-native-easy-toast";
 
 const widthScreen = Dimensions.get("window").width;
 
 export default function ListProducts({ products, handleLoadMore }) {
+  const toastRef = useRef();
+
   const [showModal, setShowModal] = useState(false);
   const [wordToSearch, setWordToSearch] = useState("");
   const [activeSlide, setActiveSlide] = useState(0);
@@ -96,6 +99,7 @@ export default function ListProducts({ products, handleLoadMore }) {
           />
         </View>
       </Modal>
+      <Toast ref={toastRef} position="center" opacity={0.9} />
     </View>
   );
 }

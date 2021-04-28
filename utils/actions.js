@@ -248,7 +248,6 @@ export const getProducts = async (limitProducts) => {
 };
 
 export const getMoreProducts = async (limitProducts, startProduct) => {
-  console.log(startProduct.data().reference);
   const result = {
     statusResponse: true,
     error: null,
@@ -275,7 +274,6 @@ export const getMoreProducts = async (limitProducts, startProduct) => {
     result.statusResponse = false;
     result.error = error;
   }
-  console.log("result", result);
   return result;
 };
 
