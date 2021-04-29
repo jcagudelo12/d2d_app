@@ -24,14 +24,17 @@ export default function Products({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const response = await getProducts(limitProducts);
-      if (response.statusResponse) {
-        setStartProduct(response.startProduct);
-        setProducts(response.products);
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const response = await getProducts(limitProducts);
+        if (response.statusResponse) {
+          setStartProduct(response.startProduct);
+          setProducts(response.products);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+      getData();
     }, [])
   );
 
@@ -40,6 +43,7 @@ export default function Products({ navigation }) {
       return;
     }
     setLoading(true);
+
     const response = await getMoreProducts(limitProducts, startProduct);
     if (response.statusResponse) {
       setStartProduct(response.startProduct);

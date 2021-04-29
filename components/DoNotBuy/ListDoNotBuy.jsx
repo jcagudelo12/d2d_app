@@ -46,7 +46,7 @@ const Reason = ({ reason, navigation, reasonSelected, setReasonSelected }) => {
     };
 
     const responseAddDocument = await addDocumentWithoutId(
-      "notVisit",
+      "doNotBuy",
       notVisit
     );
     if (!responseAddDocument.statusResponse) {

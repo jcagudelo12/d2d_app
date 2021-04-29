@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
-import { Divider, Icon } from "react-native-elements";
+import { Divider, Icon, Button } from "react-native-elements";
 import Modal from "../Modal";
 import { getDocumentById } from "../../utils/actions";
 import { size } from "lodash";
@@ -45,7 +45,6 @@ export default function ListOrders({ orders }) {
                 <Text>Descripción: </Text>
                 {info.description}
               </Text>
-
               <Text>
                 <Text>Precio: </Text>
                 {info.price}
@@ -81,7 +80,6 @@ const Order = ({ order, setShowModal, setModalBody }) => {
       return body;
     };
     setModalBody(modalBody);
-    setShowModal(true);
   };
 
   const onPress = () => goOptionsOrder();
@@ -90,14 +88,6 @@ const Order = ({ order, setShowModal, setModalBody }) => {
     <>
       <TouchableOpacity onPress={onPress}>
         <View style={styles.viewOrder}>
-          <View tyle={styles.viewIconOrders}>
-            <Icon
-              type="material-community"
-              name="view-list-outline"
-              size={30}
-              color={"#CCDB33"}
-            />
-          </View>
           <View style={styles.viewOrderInformation}>
             <Text style={styles.productInformation}>Nombre del Cliente</Text>
             <Text style={styles.productInformation}>
@@ -111,6 +101,21 @@ const Order = ({ order, setShowModal, setModalBody }) => {
               <Text style={styles.textTitleModal}>Total: </Text> {totalOrder}
             </Text>
           </View>
+          <Button
+            icon={
+              <Icon
+                type="material-community"
+                name="view-list-outline"
+                size={30}
+                color={"#474747"}
+              />
+            }
+            containerStyle={styles.btnDetailsContainer}
+            buttonStyle={styles.btnDetails}
+            onPress={() => {
+              setShowModal(true);
+            }}
+          ></Button>
         </View>
         <Divider style={styles.divider} />
       </TouchableOpacity>
@@ -119,8 +124,10 @@ const Order = ({ order, setShowModal, setModalBody }) => {
 };
 
 const styles = StyleSheet.create({
+  viewOrder: {
+    flexDirection: "row",
+  },
   viewProduct: {
-    // flexDirection: "row",
     margin: 10,
     marginRight: 100,
   },
@@ -173,7 +180,15 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   viewOrderInformation: {
-    width: "100%",
-    paddingRight: 4,
+    width: "85%",
+    padding: 4,
+  },
+  btnDetailsContainer: {
+    alignSelf: "flex-start",
+  },
+  btnDetails: {
+    backgroundColor: "#CCDB33",
+    borderRadius: 15,
+    marginTop: 20,
   },
 });

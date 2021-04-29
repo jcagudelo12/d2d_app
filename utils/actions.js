@@ -257,9 +257,11 @@ export const getMoreProducts = async (limitProducts, startProduct) => {
   try {
     const response = await db
       .collection("products")
+      .orderBy("reference", "asc")
       .startAfter(startProduct.data().reference)
       .limit(limitProducts)
       .get();
+
     if (response.docs.length > 0) {
       result.startProduct = response.docs[response.docs.length - 1];
     }
@@ -286,6 +288,7 @@ export const getOrdersSended = async (sellerId) => {
   try {
     const response = await db
       .collection("orders")
+      .where("createdBy", "==", sellerId)
       .where("createAt", ">=", moment(initialDay).unix())
       .get();
 
@@ -313,6 +316,7 @@ export const getNotVisitSended = async (sellerId) => {
     const response = await db
       .collection("notVisit")
       .where("date", ">=", moment(initialDay).unix())
+      .where("createdBy", "==", sellerId)
       .get();
 
     response.forEach((doc) => {

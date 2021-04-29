@@ -23,29 +23,35 @@ export default function MadeToday() {
   };
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const responseOne = await getNotVisitSended(getCurrentUser().uid);
-      if (responseOne.statusResponse) {
-        setQuantityNotVisit(responseOne.notVisits.length);
-      }
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const responseOne = await getNotVisitSended(getCurrentUser().uid);
+        if (responseOne.statusResponse) {
+          setQuantityNotVisit(responseOne.notVisits.length);
+        }
 
-      setLoading(false);
+        setLoading(false);
+      }
+      getData();
     }, [])
   );
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
 
-      const response = await getOrdersSended(getCurrentUser().uid);
-      if (response.statusResponse) {
-        setOrders(response.orders);
-        setQuantityOrders(orders.length);
-        totalValue();
+        const response = await getOrdersSended(getCurrentUser().uid);
+        if (response.statusResponse) {
+          setOrders(response.orders);
+          setQuantityOrders(orders.length);
+          totalValue();
+        }
+
+        setLoading(false);
       }
-
-      setLoading(false);
+      getData();
     }, [])
   );
   return (

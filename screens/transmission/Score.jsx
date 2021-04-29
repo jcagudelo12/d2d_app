@@ -29,14 +29,11 @@ export default function Score() {
               left: 0,
               top: 4,
               marginLeft: 0,
-              border: "#000",
             },
             dateInput: {
               marginLeft: 36,
             },
-            // ... You can check the source to find the other keys.
           }}
-          // onDateChange={(date) => {this.setState({date: date})}}
         />
       </View>
       <View style={styles.datePicker}>

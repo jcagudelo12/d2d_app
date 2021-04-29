@@ -25,13 +25,16 @@ export default function OrdersSended({ navigation }) {
   }, []);
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const response = await getOrdersSended(getCurrentUser().uid);
-      if (response.statusResponse) {
-        setOrders(response.orders);
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const response = await getOrdersSended(getCurrentUser().uid);
+        if (response.statusResponse) {
+          setOrders(response.orders);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+      getData();
     }, [])
   );
 

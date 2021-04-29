@@ -12,14 +12,20 @@ export default function ListArticles() {
 
   useFocusEffect(
     useCallback(() => {
-      setArticles(global.listArticles);
+      async function getData() {
+        setArticles(global.listArticles);
+      }
+      getData();
     }, [articles])
   );
   return (
     <View style={styles.principalView}>
       {size(articles) > 0 ? (
         map(articles, (articleDocument) => (
-          <Article articleDocument={articleDocument} />
+          <Article
+            articleDocument={articleDocument}
+            key={articleDocument.reference}
+          />
         ))
       ) : (
         <>

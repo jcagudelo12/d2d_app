@@ -12,9 +12,12 @@ export default function Account() {
 
   useFocusEffect(
     useCallback(() => {
-      firebase.auth().onAuthStateChanged((user) => {
-        user ? setLogin(true) : setLogin(false);
-      });
+      async function getData() {
+        firebase.auth().onAuthStateChanged((user) => {
+          user ? setLogin(true) : setLogin(false);
+        });
+      }
+      getData();
     }, [])
   );
 

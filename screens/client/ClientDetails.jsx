@@ -15,17 +15,21 @@ export default function ClientDetails({ navigation, route }) {
   const [clientInfo, setClientInfo] = useState([]);
   const [loading, setLoading] = useState(false);
   const [newRegion, setNewRegion] = useState(null);
+  const GOOGLE_MAPS_APIKEY = "AIzaSyAv0JUUZFp9ymN4FEeI98lYO7LewPclJpU";
 
   const { clientSelected } = route.params;
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const response = await getDocumentById("clients", clientSelected);
-      if (response.statusResponse) {
-        setClientInfo(response.document);
-      }
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const response = await getDocumentById("clients", clientSelected);
+        if (response.statusResponse) {
+          setClientInfo(response.document);
+        }
 
-      setLoading(false);
+        setLoading(false);
+      }
+      getData();
     }, [])
   );
 
@@ -59,7 +63,7 @@ export default function ClientDetails({ navigation, route }) {
   };
   return (
     <ScrollView style={styles.viewBody}>
-      <Loading isVisible={loading} />
+      <Loading isVisible={loading} text="Cargando información..." />
       <CarouselImage
         images={images}
         height={300}
@@ -92,6 +96,20 @@ export default function ClientDetails({ navigation, route }) {
                     longitude: newRegion.longitude,
                   }}
                   title={"Mi ubicación actual"}
+                />
+                <MapViewDirections
+                  origin={newRegion}
+                  destination={location}
+                  strokeWidth={5}
+                  strokeColor="#474747"
+                  optimizeWaypoints={true}
+                  language="es"
+                  timePrecision="now"
+                  mode="DRIVING"
+                  resetOnChange={true}
+                  optimizeWaypoints={true}
+                  precision="high"
+                  apikey={GOOGLE_MAPS_APIKEY}
                 />
               </>
             )}

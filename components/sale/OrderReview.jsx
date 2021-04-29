@@ -65,31 +65,40 @@ export default function OrderReview({ navigation }) {
   };
 
   useFocusEffect(
-    useCallback(async () => {
-      setLoading(true);
-      const response = await getDocumentById("clients", clientId);
-      if (response.statusResponse) {
-        setClient(response.document);
+    useCallback(() => {
+      async function getData() {
+        setLoading(true);
+        const response = await getDocumentById("clients", clientId);
+        if (response.statusResponse) {
+          setClient(response.document);
+        }
+        setLoading(false);
       }
-      setLoading(false);
+      getData();
     }, [clientId])
   );
 
   useFocusEffect(
-    useCallback(async () => {
-      calculateTaxes();
-      calculateTotal();
+    useCallback(() => {
+      async function getData() {
+        calculateTaxes();
+        calculateTotal();
+      }
+      getData();
     }, [subTotal])
   );
 
   useFocusEffect(
     useCallback(() => {
-      clear();
-      setListArticles(global.listArticles);
-      setClientId(global.clientId);
-      countUnities();
-      countProducts();
-      calculateSubtotal();
+      async function getData() {
+        clear();
+        setListArticles(global.listArticles);
+        setClientId(global.clientId);
+        countUnities();
+        countProducts();
+        calculateSubtotal();
+      }
+      getData();
     }, [listArticles])
   );
   const order = {

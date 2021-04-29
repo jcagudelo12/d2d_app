@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import {
   StyleSheet,
   Text,
@@ -12,18 +12,34 @@ import { Divider, Image, Input, Button } from "react-native-elements";
 import Modal from "../Modal";
 import CarouselImage from "../../components/CarouselImage";
 import "../../utils/global";
+import Toast from "react-native-easy-toast";
+import { isEmpty } from "lodash";
 
 const widthScreen = Dimensions.get("window").width;
 
 export default function ListProducts({ products, handleLoadMore }) {
+  const toastRef = useRef();
+
   const [showModal, setShowModal] = useState(false);
   const [wordToSearch, setWordToSearch] = useState("");
   const [activeSlide, setActiveSlide] = useState(0);
   const [modalBody, setModalBody] = useState([]);
   const [listArticles, setListArticles] = useState([]);
   const widthImages = (widthScreen * 85) / 100;
+  const [quantityError, setQuantityError] = useState(null);
 
+  const validForm = () => {
+    let isValid = true;
+    if (modalBody.quantity === undefined) {
+      setQuantityError("Debes ingresar una cantidad.");
+      isValid = false;
+    }
+    return isValid;
+  };
   const addArticleToSale = async () => {
+    if (!validForm()) {
+      return;
+    }
     setListArticles([...listArticles, modalBody]);
     global.listArticles = [...global.listArticles, modalBody];
     setShowModal(false);
@@ -44,7 +60,7 @@ export default function ListProducts({ products, handleLoadMore }) {
       <FlatList
         data={products}
         keyExtractor={(item, index) => index.toString()}
-        onEndReachedThreshold={0.2}
+        onEndReachedThreshold={0.5}
         onEndReached={handleLoadMore}
         renderItem={(product) => (
           <Product
@@ -80,6 +96,7 @@ export default function ListProducts({ products, handleLoadMore }) {
             placeholder="Ingresar cantidad"
             onChange={(e) => onChange(e, "quantity")}
             keyboardType="number-pad"
+            errorMessage={quantityError}
           />
           <Button
             buttonStyle={styles.btnAddArticle}
@@ -96,6 +113,7 @@ export default function ListProducts({ products, handleLoadMore }) {
           />
         </View>
       </Modal>
+      <Toast ref={toastRef} position="center" opacity={0.9} />
     </View>
   );
 }
