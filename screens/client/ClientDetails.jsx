@@ -4,6 +4,7 @@ import { Dimensions, StyleSheet, Text, ScrollView, View } from "react-native";
 import CarouselImage from "../../components/CarouselImage";
 import Loading from "../../components/Loading";
 import MapView from "react-native-maps";
+import MapViewDirections from "react-native-maps-directions";
 import { getDocumentById } from "../../utils/actions";
 import { formatPhone, getCurrentLocation } from "../../utils/helpers";
 import { _ScrollView } from "react-native";
