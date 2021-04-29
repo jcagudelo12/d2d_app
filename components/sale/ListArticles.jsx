@@ -82,16 +82,28 @@ const Article = ({ articleDocument }) => {
           {quantity * price}
         </Text>
       </View>
-      {/* <Button
-        buttonStyle={styles.btnDeleteArticle}
-        titleStyle={styles.btnTitleDeleteArticle}
-        // onPress={deleteArticle}
-        icon={{
-          type: "material-community",
-          name: "delete",
-          color: "#000",
-        }}
-      /> */}
+      <View style={styles.buttonsView}>
+        <Button
+          buttonStyle={styles.btnEditArticle}
+          titleStyle={styles.btnTitleEditArticle}
+          onPress={() => console.log("Boton editar")}
+          icon={{
+            type: "material-community",
+            name: "pencil",
+            color: "#000",
+          }}
+        />
+        <Button
+          buttonStyle={styles.btnDeleteArticle}
+          titleStyle={styles.btnTitleDeleteArticle}
+          onPress={() => console.log("Boton eliminar")}
+          icon={{
+            type: "material-community",
+            name: "delete",
+            color: "#fff",
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -137,10 +149,20 @@ const styles = StyleSheet.create({
     height: 100,
   },
   btnDeleteArticle: {
-    backgroundColor: "#CCDB33",
+    backgroundColor: "red",
     textAlignVertical: "center",
   },
   btnTitleDeleteArticle: {
     color: "#000",
+  },
+  btnEditArticle: {
+    backgroundColor: "#CCDB33",
+    textAlignVertical: "center",
+  },
+  btnTitleEditArticle: {
+    color: "#000",
+  },
+  buttonsView: {
+    justifyContent: "space-around",
   },
 });
